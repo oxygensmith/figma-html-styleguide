@@ -1,0 +1,183 @@
+:root {
+  /* ==================== */
+  /* PRIMITIVES           */
+  /* ==================== */
+
+  /* brand */
+  --brand--powder: #fff9ea;
+  --brand--green--pine: #3f4d34;
+  --brand--melon: #f5bca8;
+  --brand--yellow--sand: #eecb75;
+  --brand--blue--columbia: #cbdde9;
+  --brand--green--sage: #c2cb96;
+  --brand--melon--300: #f9d5c8;
+  --brand--blue--columbia--300: #e3edf3;
+  --brand--green--darkolive: #283121;
+  --brand--blue--columbia--700: #718591;
+
+  /* content */
+  --content--max-width--base--desktop: 76.6875rem;
+  --content--max-width--narrow--desktop: 62.5rem;
+  --content--max-width--base--mobile: 100%;
+  --content--max-width--narrow--mobile: 85%;
+
+  /* gray */
+  --gray--100: #f1f1f1;
+  --gray--200: #d3d3d3;
+  --gray--400: #afafaf;
+  --gray--600: #7c7c7c;
+  --gray--700: #484848;
+  --gray--800: #343434;
+  --gray--900: #202020;
+  --gray--white: #ffffff;
+
+  /* logo */
+  --logo--header--width--desktop: 5.3125rem;
+  --logo--header--width--tablet: 4.5rem;
+  --logo--header--width--mobile: 4.25rem;
+  --logo--footer--width--desktop: 12.5rem;
+  --logo--footer--width--tablet: 11.25rem;
+  --logo--footer--width--mobile: 10rem;
+
+  /* radius */
+  --radius--sm: 0.25rem;
+  --radius--md: 0.5rem;
+  --radius--lg: 1rem;
+  --radius--xl: 1.875rem;
+  --radius--2xl: 8rem;
+  --radius--3xl: 22.5rem;
+
+  /* spacing */
+  --spacing--1: 0.5rem;
+  --spacing--2: 1rem;
+  --spacing--3: 1.5rem;
+  --spacing--4: 2rem;
+  --spacing--5: 2.5rem;
+  --spacing--6: 3rem;
+  --spacing--7: 3.5rem;
+  --spacing--8: 4rem;
+  --spacing--9: 4.5rem;
+  --spacing--10: 5rem;
+  --spacing--11: 5.5rem;
+  --spacing--12: 6rem;
+  --spacing--13: 6.5rem;
+  --spacing--half: 0.25rem;
+
+  /* ==================== */
+  /* TYPOGRAPHY           */
+  /* ==================== */
+
+  /* font-family */
+  --font-family--body: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family--headings: "Playfair Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family--nav: var(--font-family--body);
+  --font-family--buttons: var(--font-family--body);
+
+  /* font-size */
+  --font-size--h1--desktop: 3.375rem;
+  --font-size--h1--mobile: 3rem;
+  --font-size--h1--tablet: 3.1875rem;
+  --font-size--h2--desktop: 2.625rem;
+  --font-size--h2--mobile: 2.25rem;
+  --font-size--h2--tablet: 2.4375rem;
+  --font-size--h3--desktop: 2.125rem;
+  --font-size--h3--mobile: 1.75rem;
+  --font-size--h3--tablet: 1.875rem;
+  --font-size--p--base--desktop: 1.125rem;
+  --font-size--p--base--tablet: 1.0625rem;
+  --font-size--p--base--mobile: 1rem;
+  --font-size--p--small--desktop: 0.875rem;
+  --font-size--p--small--tablet: 0.8125rem;
+  --font-size--p--small--mobile: 0.75rem;
+  --font-size--p--large--tablet: 1.3125rem;
+  --font-size--p--large--mobile: 1.25rem;
+  --font-size--p--large--desktop: 1.375rem;
+  --font-size--h4--desktop: 1.875rem;
+  --font-size--h4--tablet: 1.6875rem;
+  --font-size--h4--mobile: 1.5rem;
+
+  /* font-weight */
+  --font-weight--body: Regular;
+  --font-weight--headings: Regular;
+
+  /* line-height */
+  --line-height--p: 1.67;
+  --line-height--base: 1.667;
+  --line-height--headings: 1.4;
+
+  /* letter-spacing */
+  --letter-spacing--p: 0em;
+  --letter-spacing--headings: 0em;
+
+  /* ==================== */
+  /* BLOCKS               */
+  /* ==================== */
+
+  /* body */
+  --body--page--bg-color: var(--brand--powder);
+
+  /* btn */
+  --btn--bg--primary: var(--brand--green--pine);
+  --btn--text--primary: var(--gray--white);
+  --btn--bg--primary--invert: var(--gray--white);
+  --btn--text--primary--invert: var(--brand--green--pine);
+  --btn--bg--secondary: var(--brand--green--sage);
+  --btn--bg--secondary--invert: var(--brand--green--pine);
+  --btn--bg--alert: var(--brand--yellow--sand);
+  --btn--btn-text--highlight: var(--gray--700);
+
+  /* card */
+  --card--radius--desktop: var(--radius--xl);
+  --card--radius--tablet: var(--radius--lg);
+  --card--radius--mobile: var(--radius--md);
+
+  /* footer */
+  --footer--bg-color: var(--brand--green--pine);
+
+  /* header */
+  --header--bg-color: var(--brand--green--pine);
+
+  /* highlight-block */
+  --highlight-block--radius--desktop: var(--radius--xl);
+  --highlight-block--radius--mobile: var(--radius--md);
+  --highlight-block--radius--tablet: var(--radius--lg);
+
+  /* navigation */
+  --navigation--nav--mobile--bg-color: var(--brand--green--darkolive);
+  --navigation--nav-link--color: var(--gray--white);
+  --navigation--nav-link--secondary--color: var(--gray--white);
+
+  /* ==================== */
+  /* UTILITY TOKENS       */
+  /* ==================== */
+
+  /* border */
+  --border--invert: var(--gray--white);
+  --border--border--primary: var(--gray--700);
+
+  /* radius */
+  --radius--minimal: var(--radius--sm);
+  --radius--rounded: var(--radius--md);
+  --radius--full: var(--radius--3xl);
+
+  /* spacing */
+  --spacing--none: 0rem;
+  --spacing--xs: var(--spacing--half);
+  --spacing--sm: var(--spacing--1);
+  --spacing--md: var(--spacing--3);
+  --spacing--lg: var(--spacing--4);
+  --spacing--xl: var(--spacing--6);
+  --spacing--2xl: var(--spacing--13);
+
+  /* text */
+  --text--primary: var(--gray--700);
+  --text--invert: var(--gray--white);
+  --text--light: var(--brand--green--sage);
+  --text--headings--primary: var(--brand--green--pine);
+  --text--footer-color: var(--gray--white);
+  --text--link-color: var(--gray--900);
+  --text--nav-color--top-link: var(--gray--white);
+  --text--text--nav-color--cta: var(--brand--green--pine);
+  --text--headings--invert: var(--gray--white);
+
+}

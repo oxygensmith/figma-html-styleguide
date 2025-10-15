@@ -1,0 +1,117 @@
+/* =========================== */
+/* STYLEGUIDE-ONLY STYLES      */
+/* =========================== */
+
+// Variables
+$stat-margin-bottom: 0.5rem;
+$info-box-font-size: 0.75rem;
+$stat-label-font-size: 0.7rem;
+$swatch-height: 80px;
+$swatch-font-size: 0.75rem;
+$swatch-name-margin: 0.25rem;
+$stats-grid-gap: 0.5rem;
+$min-element-width: 300px;
+
+/* Typography element wrapper */
+.sg-typography-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing--md);
+  margin-bottom: var(--spacing--md);
+  border-bottom: 1px solid var(--text--primary);
+  flex-wrap: wrap;
+}
+
+/* Typography element (heading or paragraph) */
+.sg-typography-element {
+  flex: 1;
+  min-width: $min-element-width;
+  margin: 0;
+}
+
+/* Info box for typography stats */
+.sg-info-box {
+  padding: var(--spacing--sm);
+  border-radius: var(--radius--minimal);
+  font-family: monospace;
+  font-size: $info-box-font-size;
+  flex: 1;
+  min-width: $min-element-width;
+}
+
+/* Grid layout for typography stats */
+.sg-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $stats-grid-gap;
+  text-align: center;
+}
+
+/* Column within stats grid */
+.sg-stats-column {
+  /* No specific styles needed - inherits from grid */
+}
+
+/* Breakpoint label (Mobile, Tablet, Desktop) */
+.sg-breakpoint-label {
+  font-weight: bold;
+  margin-bottom: $stat-margin-bottom;
+}
+
+/* Size value */
+.sg-size-value {
+  margin-bottom: $stat-margin-bottom;
+}
+
+/* Stat label (Weight, Spacing, Line Height) */
+.sg-stat-label {
+  color: var(--text--light);
+  font-size: $stat-label-font-size;
+  margin-bottom: $stat-margin-bottom;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* Stat value */
+.sg-stat-value {
+  margin-bottom: $stat-margin-bottom;
+}
+
+/* Last stat value (no margin) */
+.sg-stat-value-last {
+  margin-bottom: 0;
+}
+
+/* Swatch container */
+.sg-swatch-container {
+  /* Container styles if needed */
+}
+
+/* Swatch color block */
+.sg-swatch-color {
+  height: $swatch-height;
+  border-radius: var(--radius--minimal);
+  margin-bottom: var(--spacing--xs);
+}
+
+/* Swatch with border (for light colors) */
+.sg-swatch-border {
+  border: 1px solid var(--gray--200);
+}
+
+/* Swatch text info */
+.sg-swatch-name {
+  margin-bottom: $swatch-name-margin;
+}
+
+.sg-swatch-variable {
+  margin-bottom: $swatch-name-margin;
+  font-family: monospace;
+  font-size: $swatch-font-size;
+}
+
+.sg-swatch-hex {
+  font-family: monospace;
+  font-size: $swatch-font-size;
+  color: var(--text--light);
+}

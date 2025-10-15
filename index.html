@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System Demo - Arcana</title>
+  
+  <!-- FONTS: Load web fonts from Google Fonts if you use these. -->
+  <!-- Update these if you change fonts in Figma -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- STYLES: Generated from Figma via Style Dictionary -->
+  <link rel="stylesheet" href="./build/css/variables.css">
+
+  <!-- Global styles that would be in our Divi Code Snippets -->
+  <link rel="stylesheet" href="./css/codesnippet.css">
+
+  <!-- Styles used to lay out this styleguide only. Uses SCSS and SCSS variables. -->
+  <link rel="stylesheet" href="./css/styleguide.scss">
+
+</head>
+<body>
+  
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="nav-container">
+          <div class="logo">Arcana</div>
+          <div class="nav-links">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link nav-link-cta btn btn-primary-invert">Contact</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="section-hero">
+    <div class="container">
+      <h1 class="mb-md">Pre-Divi Preview</h1>
+      <p class="large mb-lg">A demonstration of moving our variable-driven Figma prototypes to Divi-ready CSS.</p>
+      <div class="flex gap-sm flex-wrap">
+        <a href="#demo" class="btn btn-primary">Get Started</a>
+        <a href="#learn" class="btn btn-secondary">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+<!-- TYPOGRAPHY SECTION -->
+<section class="container mt-2xl mb-2xl">
+  <h2 class="mb-md">Typography Scale</h2>
+  <p class="mb-lg">Our typography is responsive across mobile, tablet, and desktop breakpoints.</p>
+  
+  <div class="card mb-lg">
+    <h1>Heading 1</h1>
+    <h2>Heading 2</h2>
+    <h3>Heading 3</h3>
+    <h4>Heading 4</h4>
+    
+    <p class="mt-md">Regular paragraph text.</p>
+    
+    <p class="large">Large paragraph text.</p>
+    
+    <p class="small">Small paragraph text.</p>
+  </div>
+</section>
+
+  <!-- BUTTONS SECTION -->
+  <section class="section-light">
+    <div class="container">
+      <h2 class="mb-md">Button Styles</h2>
+      <p class="mb-lg">Various button styles for different contexts and actions.</p>
+      
+      <div class="flex gap-sm flex-wrap">
+        <button class="btn btn-primary">Primary Button</button>
+        <button class="btn btn-primary-invert">Primary Inverted</button>
+        <button class="btn btn-secondary">Secondary Button</button>
+        <button class="btn btn-secondary-invert">Secondary Inverted</button>
+        <button class="btn btn-alert">Alert Button</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS & BLOCKS SECTION -->
+  <section class="container mt-2xl mb-2xl">
+    <h2 class="mb-md">Cards & Content Blocks</h2>
+    <p class="mb-lg">Flexible content containers with consistent spacing and styling.</p>
+    
+    <div class="grid-auto-fit gap-lg mb-xl">
+      <div class="card">
+        <h3>Standard Card</h3>
+        <p>Cards provide a clean container for related content with consistent padding and rounded corners.</p>
+        <a href="#" class="btn btn-primary mt-md">Learn More</a>
+      </div>
+      
+      <div class="card">
+        <h3>Featured Content</h3>
+        <p>Use cards to highlight important information or create visual hierarchy in your layouts.</p>
+        <a href="#" class="btn btn-secondary mt-md">Explore</a>
+      </div>
+      
+      <div class="card">
+        <h3>Call to Action</h3>
+        <p>Cards work great for CTAs, testimonials, or any content that needs emphasis and separation.</p>
+        <a href="#" class="btn btn-alert mt-md">Get Started</a>
+      </div>
+    </div>
+    
+    <div class="highlight-block">
+      <h3>Highlight Block</h3>
+      <p class="mb-sm">This is a special highlight block with custom border radius and background color. Perfect for important announcements or featured content.</p>
+      <a href="#" class="btn btn-primary">Take Action</a>
+    </div>
+  </section>
+
+  <!-- COLOR SWATCHES SECTION -->
+<section class="section-powder">
+  <div class="container">
+    <h2 class="mb-md">Color Palette</h2>
+    <p class="mb-lg">Our semantic color system built on primitive tokens.</p>
+    
+    <h3 class="mb-sm">Brand Colors</h3>
+    <div id="brand-swatches" class="grid-auto-fill gap-md mb-xl">
+      <!-- Swatches will be generated here by JavaScript -->
+    </div>
+    
+    <h3 class="mb-sm">Grayscale</h3>
+    <div id="gray-swatches" class="grid-auto-fill gap-sm mb-xl">
+      <!-- Swatches will be generated here by JavaScript -->
+    </div>
+  </div>
+</section>
+
+  <!-- BORDER RADIUS SECTION -->
+  <section class="section-light">
+    <div class="container">
+      <h2 class="mb-md">Border Radius</h2>
+      <p class="mb-lg">Consistent rounding for UI elements.</p>
+      
+      <div class="grid-2col gap-lg">
+        <div class="card rounded-minimal">
+          <h4>Minimal</h4>
+          <p class="small">Subtle rounding for buttons and inputs</p>
+        </div>
+        <div class="card rounded">
+          <h4>Rounded</h4>
+          <p class="small">Standard rounding for cards</p>
+        </div>
+        <div class="card" style="border-radius: var(--radius--card);">
+          <h4>Card</h4>
+          <p class="small">Larger rounding for prominent cards</p>
+        </div>
+        <div class="pill">
+          <h4>Pill</h4>
+          <p class="small">Full rounding for badges</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK BACKGROUND SECTION -->
+  <section class="section-dark text-invert">
+    <div class="container">
+      <h2 class="mb-md text-invert">Inverted Color Scheme</h2>
+      <p class="mb-lg">Our design system adapts beautifully to dark backgrounds with inverted text and button styles.</p>
+      
+      <div class="grid-3col gap-lg">
+        <div>
+          <h3 class="mb-sm text-invert headings">Feature One</h3>
+          <p>Light text on dark backgrounds maintains readability while creating visual interest and hierarchy.</p>
+        </div>
+        <div>
+          <h3 class="mb-sm text-invert headings">Feature Two</h3>
+          <p>All our semantic color tokens include inverted variants for use on dark backgrounds.</p>
+        </div>
+        <div>
+          <h3 class="mb-sm text-invert headings">Feature Three</h3>
+          <p>Consistent spacing and typography ensure your content looks great in any context.</p>
+        </div>
+      </div>
+      
+      <div class="flex gap-sm flex-wrap mt-xl">
+        <button class="btn btn-primary-invert">Light Button</button>
+        <button class="btn btn-secondary-invert">Secondary Inverted</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4 class="mb-sm text-invert headings">About</h4>
+          <p class="small">A design system built with Figma variables, exported through Style Dictionary, and implemented in WordPress.</p>
+        </div>
+        <div>
+          <h4 class="mb-sm text-invert headings">Quick Links</h4>
+          <div class="footer-links">
+            <a href="#" class="small">Home</a>
+            <a href="#" class="small">About</a>
+            <a href="#" class="small">Services</a>
+            <a href="#" class="small">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="mb-sm text-invert headings">Contact</h4>
+          <p class="small">Saskatoon, Saskatchewan<br>Treaty 6 Territory<br>Canada</p>
+        </div>
+      </div>
+      
+      <div class="footer-divider">
+        <p class="small">&copy; 2025 Arcana. Design system powered by Figma variables and Style Dictionary.</p>
+      </div>
+    </div>
+  </footer>
+
+<script src="./js/styleguide.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "styledictionary",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Interface for Style Dictionary to prebuild web projects from Figma.",
+  "scripts": {
+    "build:tokens": "node js/build.js",
+    "watch:tokens": "nodemon --watch tokens/figma-export.json --exec 'node js/build.js'",
+    "dev": "npm run build:tokens && npm run watch:tokens & parcel index.html",
+    "build": "npm run build:tokens && parcel build index.html",
+    "start": "npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "style-dictionary": "^5.1.1"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.16.0",
+    "nodemon": "^3.1.10",
+    "parcel": "^2.16.0"
+  }
+}
