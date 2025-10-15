@@ -47,8 +47,8 @@ This project bridges the gap between Figma design and WordPress development by:
 
 1. Clone this repository:
 ```bash
-git clone [your-repo-url]
-cd [repo-name]
+git clone git@github.com:oxygensmith/figma-html-styleguide.git
+cd figma-html-styleguide
 ```
 
 2. Install dependencies:
@@ -208,7 +208,8 @@ This is a living workflow! Improvements welcome.
 
 ## License
 
-[Your chosen license]
+MIT License attached to this.
+https://github.com/oxygensmith/figma-html-styleguide/blob/main/.LICENSE
 
 ## Acknowledgments
 
