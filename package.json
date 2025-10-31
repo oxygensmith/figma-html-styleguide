@@ -19,6 +19,7 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.16.0",
     "nodemon": "^3.1.10",
-    "parcel": "^2.16.0"
+    "parcel": "^2.16.0",
+    "wcag-contrast": "^3.0.0"
   }
 }

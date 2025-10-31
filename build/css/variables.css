@@ -68,8 +68,14 @@
   /* ==================== */
 
   /* font-family */
-  --font-family--body: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family--headings: "Playfair Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family--body:
+    Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-family--headings:
+    'Playfair Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-family--nav: var(--font-family--body);
   --font-family--buttons: var(--font-family--body);
 
@@ -125,6 +131,7 @@
   --btn--bg--secondary--invert: var(--brand--green--pine);
   --btn--bg--alert: var(--brand--yellow--sand);
   --btn--btn-text--highlight: var(--gray--700);
+  --btn--radius: var(--radius--full);
 
   /* card */
   --card--radius--desktop: var(--radius--xl);
@@ -179,5 +186,4 @@
   --text--nav-color--top-link: var(--gray--white);
   --text--text--nav-color--cta: var(--brand--green--pine);
   --text--headings--invert: var(--gray--white);
-
 }

@@ -2,6 +2,54 @@
 /* STYLEGUIDE-ONLY STYLES      */
 /* =========================== */
 
+// Branding
+.sg-our-watermark {
+  background-color: #2f305e;
+  color: #fff;
+  a {
+    color: #fff;
+    text-decoration: underline;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0 0.1rem 0;
+    img {
+      height: 40px;
+    }
+    .sg-aside-note {
+      font-size: 12px;
+    }
+    .sg-aside-content {
+      display: flex;
+      flex-flow: column;
+      .sg-styleguide-text {
+        font-size: 10px;
+        line-height: 1;
+      }
+      .sg-styleguide-client {
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.our-watermark {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0.15;
+  z-index: 1000;
+}
+
 // Variables
 $stat-margin-bottom: 0.5rem;
 $info-box-font-size: 0.75rem;
@@ -114,4 +162,86 @@ $min-element-width: 300px;
   font-family: monospace;
   font-size: $swatch-font-size;
   color: var(--text--light);
+}
+
+// Accessibility section
+
+.sg-contrast-swatch {
+  padding: var(--spacing--md);
+  border-radius: var(--radius--minimal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--sm);
+  min-height: 150px;
+}
+
+.sg-contrast-example {
+  display: flex;
+  gap: var(--spacing--sm);
+  align-items: baseline;
+  margin-bottom: var(--spacing--xs);
+}
+
+.sg-contrast-large {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.sg-contrast-small {
+  font-size: 1rem;
+}
+
+.sg-contrast-info {
+  margin-top: auto;
+}
+
+.sg-contrast-ratio {
+  font-family: monospace;
+  font-size: 1.25rem;
+  margin-bottom: $swatch-name-margin;
+}
+
+.sg-contrast-compliance {
+  font-weight: bold;
+  margin-bottom: $swatch-name-margin;
+}
+
+.sg-contrast-colors {
+  font-size: $swatch-font-size;
+  opacity: 0.8;
+}
+
+// WCAG Contrast filter buttons
+.sg-contrast-filters {
+  display: flex;
+  gap: var(--spacing--sm);
+  flex-wrap: wrap;
+}
+
+.sg-filter-btn {
+  padding: var(--spacing--sm) var(--spacing--md);
+  border: 2px solid var(--gray--400);
+  border-radius: var(--radius--minimal);
+  background: var(--gray--white);
+  color: var(--text--primary);
+  font-family: var(--font-family--body);
+  font-size: var(--font-size--p--small--desktop);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--gray--700);
+    background: var(--gray--100);
+  }
+
+  &.active {
+    background: var(--brand--green--pine);
+    color: var(--gray--white);
+    border-color: var(--brand--green--pine);
+  }
+}
+
+// Hide filtered swatches
+.sg-contrast-swatch.hidden {
+  display: none;
 }
