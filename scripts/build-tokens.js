@@ -1,11 +1,68 @@
 /* this interacts with Styledictionary */
 
 import StyleDictionary from 'style-dictionary';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
+import path from 'path';
 
-// Read the Figma export
-const figmaExport = JSON.parse(
-  readFileSync('./tokens/figma-export.json', 'utf8')
+// Auto-discover clients from index-*.html files
+function discoverClients() {
+  const htmlFiles = readdirSync('./src');
+  const tokenFiles = readdirSync('./tokens');
+
+  const clientsWithHTML = [];
+  const clientsWithTokens = [];
+
+  htmlFiles.forEach((file) => {
+    const match = file.match(/^index-(.+)\.html$/);
+    if (match) clientsWithHTML.push(match[1]);
+  });
+
+  tokenFiles.forEach((file) => {
+    const match = file.match(/^figma-(.+)\.json$/);
+    if (match) clientsWithTokens.push(match[1]);
+  });
+
+  // Find clients that have both HTML and tokens
+  const validClients = clientsWithHTML.filter((client) =>
+    clientsWithTokens.includes(client)
+  );
+
+  // Warn about mismatches
+  const htmlOnly = clientsWithHTML.filter(
+    (client) => !clientsWithTokens.includes(client)
+  );
+  const tokensOnly = clientsWithTokens.filter(
+    (client) => !clientsWithHTML.includes(client)
+  );
+
+  if (htmlOnly.length > 0) {
+    console.warn(
+      `\n⚠️  HTML files without matching tokens: ${htmlOnly.join(', ')}`
+    );
+    console.warn(`   Add figma-{client}.json files for these clients`);
+  }
+
+  if (tokensOnly.length > 0) {
+    console.warn(
+      `\n⚠️  Token files without matching HTML: ${tokensOnly.join(', ')}`
+    );
+    console.warn(`   Add index-{client}.html files for these clients`);
+  }
+
+  if (validClients.length === 0) {
+    console.error(
+      '\n❌ No valid client pairs found (need both index-*.html and figma-*.json)'
+    );
+    process.exit(1);
+  }
+
+  return validClients;
+}
+
+const clients = discoverClients();
+
+console.log(
+  `\n🔍 Discovered ${clients.length} client(s): ${clients.join(', ')}`
 );
 
 // Define unit rules - checks if key appears anywhere in the token path
@@ -19,22 +76,19 @@ const units = {
   radius: 'rem',
   padding: 'rem',
   margin: 'rem',
-  // Add more as needed
 };
 
 // Function to add unit metadata to tokens
 function addUnitMetadata(obj) {
   for (let key in obj) {
     if (obj[key].type && obj[key].value !== undefined) {
-      // It's a token - check if any unit rule matches the path
       for (let unitKey in units) {
         if (key.includes(unitKey)) {
           obj[key].unit = units[unitKey];
-          break; // Use first match
+          break;
         }
       }
     } else if (typeof obj[key] === 'object') {
-      // It's a group - recurse
       addUnitMetadata(obj[key]);
     }
   }
@@ -45,54 +99,34 @@ function addUnitMetadata(obj) {
 function filterTextStyles(obj) {
   const filtered = {};
   for (let key in obj) {
-    // Skip if it's a text style object (has fontSize, fontFamily properties)
     if (obj[key].fontSize || obj[key].fontFamily) {
       continue;
     }
-    // If it's a group, recurse
     if (typeof obj[key] === 'object' && !obj[key].type) {
       filtered[key] = filterTextStyles(obj[key]);
     } else {
-      // It's a variable, keep it
       filtered[key] = obj[key];
     }
   }
   return filtered;
 }
 
-// Keep the nested structure
-let tokens = {
-  primitives: figmaExport['primitives'],
-  typography: filterTextStyles(figmaExport['typography']),
-  blocks: figmaExport['blocks'], // Add blocks collection
-  ...figmaExport['tokens'],
-};
+// ============================================
+// REGISTER STYLE DICTIONARY TRANSFORMS & FORMATS
+// (Only register once, before the loop)
+// ============================================
 
-// Add unit metadata
-tokens = addUnitMetadata(tokens);
-
-// Write the tokens for Style Dictionary
-writeFileSync('./tokens/tokens.json', JSON.stringify(tokens, null, 2));
-console.log('✓ tokens.json written successfully');
-console.log('Token count:', Object.keys(tokens).length);
-
-// Register custom name transform with double dashes
 StyleDictionary.registerTransform({
   name: 'name/double-dash',
   type: 'name',
-  transform: (token) => {
-    return token.path.join('--');
-  },
+  transform: (token) => token.path.join('--'),
 });
 
-// Register custom CSS format that preserves references as var()
 StyleDictionary.registerFormat({
   name: 'css/variables-with-references',
   format: ({ dictionary }) => {
-    // Define system font stacks (Bootstrap 5 defaults)
     const systemFontStack =
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
-    const serifFontStack = 'Georgia, "Times New Roman", Times, serif';
 
     // Separate collections
     const primitiveTokens = dictionary.allTokens.filter(
@@ -112,15 +146,12 @@ StyleDictionary.registerFormat({
     );
 
     // Helper function to format a token
-    // Helper function to format a token
     const formatToken = (token) => {
       let value = token.value;
-
       const originalValue = token.original?.value || token.value;
 
       if (typeof originalValue === 'string' && originalValue.includes('{')) {
         const ref = originalValue.match(/\{([^}]+)\}/)[1];
-        // Remove 'primitives.', 'typography.', 'blocks.', and 'color.' from references
         const cleanRef = ref
           .replace('primitives.', '')
           .replace('typography.', '')
@@ -134,26 +165,18 @@ StyleDictionary.registerFormat({
       ) {
         const tokenPath = token.path.join('--');
 
-        // HANDLE LINE-HEIGHT FIRST (before checking unit)
         if (tokenPath.includes('line-height')) {
-          // Line-height: if value is very small (< 10), it's a ratio (unitless)
-          // If it's large (>= 10), it's in pixels and needs to be converted to ratio
           value = token.value >= 10 ? token.value / 16 : token.value;
         } else {
-          // For non-line-height values, use unit logic
           const unit = token.unit || 'rem';
 
           if (unit === '') {
-            // Other unitless values divide by 16
             value = token.value / 16;
           } else if (unit === 'px') {
-            // Keep as pixels
             value = `${token.value}px`;
           } else if (unit === 'em' || unit === 'rem') {
-            // Convert to em or rem
             value = `${token.value / 16}${unit}`;
           } else {
-            // Fallback
             value = `${token.value}${unit}`;
           }
         }
@@ -161,22 +184,17 @@ StyleDictionary.registerFormat({
         token.type === 'string' &&
         token.path.includes('font-family')
       ) {
-        // Add fallback font stack to font-family values
         const fontName = token.value;
-
-        // Add quotes if font name has spaces
         const quotedFont = fontName.includes(' ') ? `"${fontName}"` : fontName;
-
-        // Add universal fallback stack
         value = `${quotedFont}, ${systemFontStack}`;
       }
 
-      // Remove 'primitives', 'typography', 'blocks', and 'color' from the path
       const path = token.path.filter(
         (p) =>
           p !== 'primitives' &&
           p !== 'typography' &&
           p !== 'blocks' &&
+          p !== 'tokens' &&
           p !== 'color'
       );
       return `  --${path.join('--')}: ${value};`;
@@ -271,16 +289,9 @@ StyleDictionary.registerFormat({
 StyleDictionary.registerFormat({
   name: 'css/utilities',
   format: ({ dictionary }) => {
-    console.log('Total tokens:', dictionary.allTokens.length);
-    console.log('Token types:', [
-      ...new Set(dictionary.allTokens.map((t) => t.type)),
-    ]);
-
     const colorTokens = dictionary.allTokens.filter(
       (token) => token.type === 'color'
     );
-
-    console.log('Color tokens found:', colorTokens.length);
 
     let output = '/* ========================================= */\n';
     output += '/* AUTO-GENERATED UTILITY CLASSES           */\n';
@@ -291,7 +302,6 @@ StyleDictionary.registerFormat({
     output += '/* COLOR UTILITIES */\n\n';
 
     colorTokens.forEach((token) => {
-      // Remove 'primitives', 'typography', 'blocks', and 'color' from the path
       const path = token.path.filter(
         (p) =>
           p !== 'primitives' &&
@@ -319,47 +329,88 @@ StyleDictionary.registerFormat({
   },
 });
 
-// Register custom transform group
 StyleDictionary.registerTransformGroup({
   name: 'custom/css',
   transforms: ['name/double-dash', 'color/hex'],
 });
 
-// Build configuration
-const config = {
-  log: {
-    verbosity: 'verbose',
-  },
-  source: ['tokens/tokens.json'],
-  platforms: {
-    css: {
-      transformGroup: 'custom/css',
-      buildPath: './build/css/',
-      files: [
-        {
-          destination: 'variables.css',
-          format: 'css/variables-with-references',
+// ============================================
+// PROCESS EACH CLIENT
+// ============================================
+
+for (const client of clients) {
+  console.log(`\n🎨 Building tokens for: ${client.toUpperCase()}`);
+
+  const figmaExportPath = `./tokens/figma-${client}.json`;
+
+  try {
+    const figmaExport = JSON.parse(readFileSync(figmaExportPath, 'utf8'));
+
+    // Keep the nested structure
+    let tokens = {
+      primitives: figmaExport['primitives'] || {},
+      typography: figmaExport['typography']
+        ? filterTextStyles(figmaExport['typography'])
+        : {},
+      blocks: figmaExport['blocks'] || {},
+      tokens: figmaExport['tokens'] || {}, // ✅ Keep tokens as a nested object
+    };
+
+    // Add unit metadata
+    tokens = addUnitMetadata(tokens);
+
+    // Write the tokens for Style Dictionary
+    writeFileSync(
+      `./tokens/tokens-${client}.json`,
+      JSON.stringify(tokens, null, 2)
+    );
+
+    // Build configuration for this client
+    const config = {
+      log: {
+        verbosity: 'verbose',
+      },
+      source: [`tokens/tokens-${client}.json`],
+      platforms: {
+        css: {
+          transformGroup: 'custom/css',
+          buildPath: `./build/css/`,
+          files: [
+            {
+              destination: `variables-${client}.css`,
+              format: 'css/variables-with-references',
+            },
+            {
+              destination: `utilities-${client}.css`,
+              format: 'css/utilities',
+            },
+          ],
         },
-        {
-          destination: 'utilities.css',
-          format: 'css/utilities',
-        },
-      ],
-    },
-  },
-};
+      },
+    };
 
-const sd = new StyleDictionary(config);
+    const sd = new StyleDictionary(config);
+    await sd.buildAllPlatforms();
 
-// Debug: Show resolved paths
-console.log('\n=== Resolved Build Paths ===');
-console.log('Current working directory:', process.cwd());
-console.log('Build script location:', import.meta.url);
-console.log('Configured buildPath:', config.platforms.css.buildPath);
+    console.log(`✅ Built variables-${client}.css and utilities-${client}.css`);
+  } catch (error) {
+    console.error(`❌ Error building ${client}: ${error.message}`);
+    console.log(`   Make sure ./tokens/figma-${client}.json exists`);
+  }
+}
 
-await sd.buildAllPlatforms();
+console.log('\n✨ All client tokens built successfully!');
 
-console.log('\n=== Checking if files exist ===');
-import { existsSync } from 'fs';
-console.log('variables.css exists:', existsSync('../build/css/variables.css'));
-console.log('utilities.css exists:', existsSync('../build/css/utilities.css'));
+// Debug: Check if files exist
+console.log('\n=== Checking generated files ===');
+clients.forEach((client) => {
+  console.log(`${client}:`);
+  console.log(
+    `  variables-${client}.css exists:`,
+    existsSync(`./build/css/variables-${client}.css`)
+  );
+  console.log(
+    `  utilities-${client}.css exists:`,
+    existsSync(`./build/css/utilities-${client}.css`)
+  );
+});

@@ -1,0 +1,227 @@
+:root {
+  /* ==================== */
+  /* PRIMITIVES           */
+  /* ==================== */
+
+  /* brand */
+  --brand--white: #ffffff;
+  --brand--mint: #06b280;
+  --brand--purple--majorelle: #7d50f6;
+  --brand--pink: #fa6cb1;
+  --brand--yellow: #ffb600;
+  --brand--blue: #41cdf0;
+  --brand--red: #f51d21;
+  --brand--purple--dark: #241332;
+  --brand--orange: #f14a1c;
+
+  /* content */
+  --content--max-width--base--desktop: 76.5625rem;
+  --content--max-width--narrow--desktop: 62.5rem;
+  --content--max-width--base--mobile: 100%;
+  --content--max-width--narrow--mobile: 85%;
+  --content--max-width--none: 100%;
+
+  /* gray */
+  --gray--100: #f1f1f1;
+  --gray--200: #d3d3d3;
+  --gray--400: #afafaf;
+  --gray--600: #7c7c7c;
+  --gray--700: #484848;
+  --gray--800: #343434;
+  --gray--900: #121212;
+  --gray--black: #000000;
+
+  /* logo */
+  --logo--header--width--desktop: 8rem;
+  --logo--header--width--tablet: 5.0625rem;
+  --logo--header--width--mobile: 4.5rem;
+  --logo--footer--width--desktop: 13.8125rem;
+  --logo--footer--width--tablet: 8.0625rem;
+  --logo--footer--width--mobile: 11.75rem;
+
+  /* radius */
+  --radius--sm: 0.125rem;
+  --radius--md: 0.3125rem;
+  --radius--lg: 0.625rem;
+  --radius--xl: 1.875rem;
+  --radius--2xl: 3.75rem;
+  --radius--3xl: 5.625rem;
+
+  /* spacing */
+  --spacing--1: 0.5rem;
+  --spacing--2: 1rem;
+  --spacing--3: 1.5rem;
+  --spacing--4: 2rem;
+  --spacing--5: 2.5rem;
+  --spacing--6: 3rem;
+  --spacing--7: 3.5rem;
+  --spacing--8: 4rem;
+  --spacing--9: 4.5rem;
+  --spacing--10: 5rem;
+  --spacing--11: 5.5rem;
+  --spacing--12: 6rem;
+  --spacing--13: 6.5rem;
+  --spacing--half: 0.25rem;
+
+  /* transparent */
+  --transparent: #ffffff00;
+
+  /* ==================== */
+  /* TYPOGRAPHY           */
+  /* ==================== */
+
+  /* font-family */
+  --font-family--body: area_normalregular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family--headings: urbanedemi_bold, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family--nav: var(--font-family--body);
+  --font-family--buttons: var(--font-family--body);
+
+  /* font-size */
+  --font-size--h1--desktop: 3.5rem;
+  --font-size--h1--mobile: 3rem;
+  --font-size--h1--tablet: 3.1875rem;
+  --font-size--h2--desktop: 2.75rem;
+  --font-size--h2--mobile: 2.25rem;
+  --font-size--h2--tablet: 2.4375rem;
+  --font-size--h3--desktop: 2.25rem;
+  --font-size--h3--mobile: 1.75rem;
+  --font-size--h3--tablet: 1.875rem;
+  --font-size--p--base--desktop: 1.125rem;
+  --font-size--p--base--tablet: 1.0625rem;
+  --font-size--p--base--mobile: 1rem;
+  --font-size--p--small--desktop: 0.875rem;
+  --font-size--p--small--tablet: 0.8125rem;
+  --font-size--p--small--mobile: 0.75rem;
+  --font-size--p--large--tablet: 1.3125rem;
+  --font-size--p--large--mobile: 1.25rem;
+  --font-size--p--large--desktop: 1.375rem;
+  --font-size--h4--desktop: 1.875rem;
+  --font-size--h4--tablet: 1.6875rem;
+  --font-size--h4--mobile: 1.5rem;
+
+  /* font-weight */
+  --font-weight--body: 600;
+  --font-weight--headings: 600;
+
+  /* line-height */
+  --line-height--p: 1.67;
+  --line-height--base: 1.667;
+  --line-height--headings: 1.4;
+
+  /* ==================== */
+  /* BLOCKS               */
+  /* ==================== */
+
+  /* body */
+  --body--bg-color: var(--brand--mint);
+
+  /* btn */
+  --btn--secondary--bg: var(--brand--pink);
+  --btn--secondary--text-color: var(--brand--purple--dark);
+  --btn--secondary--bg--invert: var(--brand--purple--dark);
+  --btn--secondary--text-color--invert: var(--brand--white);
+  --btn--secondary--text-transform: none;
+  --btn--secondary--border-width--bottom: 0px;
+  --btn--secondary--radius: var(--btn--radius);
+  --btn--tertiary--bg: var(--brand--blue);
+  --btn--tertiary--text-color: var(--brand--purple--dark);
+  --btn--tertiary--text-transform: none;
+  --btn--tertiary--border-width--bottom: 0px;
+  --btn--tertiary--radius: var(--btn--radius);
+  --btn--highlight--bg: var(--brand--pink);
+  --btn--highlight--text-color: var(--gray--700);
+  --btn--highlight--text-transform: none;
+  --btn--highlight--border-width--bottom: 0px;
+  --btn--highlight--radius: var(--btn--radius);
+  --btn--radius: var(--tokens--radius--full);
+  --btn--primary--text-transform: none;
+  --btn--primary--text-color--invert: var(--brand--white);
+  --btn--primary--bg--invert: var(--brand--purple--dark);
+  --btn--primary--text-color: var(--brand--purple--dark);
+  --btn--primary--bg: var(--brand--yellow);
+  --btn--primary--radius: var(--btn--radius);
+  --btn--primary--mobile--font-size: 1.125rem;
+  --btn--primary--tablet--font-size: 1.25rem;
+  --btn--primary--desktop--font-size: 1.375rem;
+  --btn--primary--border-width--bottom: 4px;
+  --btn--primary--hover--bg: var(--brand--red);
+  --btn--primary--hover--text-color: var(--brand--purple--majorelle);
+  --btn--border-width--bottom: inherit;
+  --btn--font-weight: 37.5rem;
+  --btn--mobile--font-size: 1.125rem;
+  --btn--tablet--font-size: 1.1875rem;
+  --btn--desktop--font-size: 1.25rem;
+
+  /* card */
+  --card--radius--desktop: var(--radius--xl);
+  --card--radius--tablet: var(--radius--lg);
+  --card--radius--mobile: var(--radius--md);
+
+  /* footer */
+  --footer--bg-color: var(--brand--purple--majorelle);
+  --footer--content--max-width: var(--content--max-width--base--desktop);
+
+  /* header */
+  --header--bg-color: var(--brand--purple--majorelle);
+  --header--padding--y: var(--tokens--spacing--xs);
+  --header--position: fixed;
+  --header--content--max-width: var(--content--max-width--base--desktop);
+
+  /* highlight-block */
+  --highlight-block--radius--desktop: var(--radius--xl);
+  --highlight-block--radius--mobile: var(--radius--md);
+  --highlight-block--radius--tablet: var(--radius--lg);
+
+  /* navigation */
+  --navigation--mobile--bg-color: var(--brand--purple--dark);
+  --navigation--mobile--toggler-color: var(--brand--yellow);
+  --navigation--mobile--dropdown--link-color--hover: var(--brand--yellow);
+  --navigation--mobile--dropdown--bg: var(--brand--yellow);
+  --navigation--mobile--dropdown--link-color: var(--brand--white);
+  --navigation--mobile--dropdown--text-transform: none;
+  --navigation--mobile--toplink--color--hover: var(--brand--yellow);
+  --navigation--mobile--toplink: var(--brand--white);
+  --navigation--mobile--toplink--text-transform: none;
+  --navigation--desktop--toplink: var(--brand--white);
+  --navigation--desktop--toplink--color--hover: var(--brand--yellow);
+  --navigation--desktop--toplink--text-transform: none;
+  --navigation--desktop--dropdown--dropdown--link-color: var(--brand--white);
+  --navigation--desktop--dropdown--dropdown--link-color--hover: var(--brand--yellow);
+  --navigation--desktop--dropdown--dropdown--bg: var(--brand--yellow);
+  --navigation--desktop--dropdown--text-transform: none;
+
+  /* section */
+  --section--padding--y--mobile: var(--tokens--spacing--md);
+  --section--padding--y--desktop: var(--tokens--spacing--lg);
+
+  /* subfooter */
+  --subfooter--bg-color: var(--brand--pink);
+
+  /* ==================== */
+  /* UTILITY TOKENS       */
+  /* ==================== */
+
+  /* tokens */
+  --border--invert: var(--brand--white);
+  --border--border--primary: var(--gray--700);
+  --radius--minimal: var(--radius--lg);
+  --radius--rounded: var(--radius--2xl);
+  --radius--full: var(--radius--3xl);
+  --spacing--none: 0rem;
+  --spacing--xs: var(--spacing--half);
+  --spacing--sm: var(--spacing--1);
+  --spacing--md: var(--spacing--3);
+  --spacing--lg: var(--spacing--4);
+  --spacing--xl: var(--spacing--6);
+  --spacing--2xl: var(--spacing--13);
+  --text--primary: var(--gray--900);
+  --text--invert: var(--brand--white);
+  --text--light: var(--brand--red);
+  --text--headings--primary: var(--gray--900);
+  --text--footer-color: var(--brand--white);
+  --text--link-color: var(--gray--900);
+  --text--nav-color--top-link: var(--brand--white);
+  --text--text--nav-color--cta: var(--brand--purple--majorelle);
+  --text--headings--invert: var(--brand--white);
+
+}

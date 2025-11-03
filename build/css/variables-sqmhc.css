@@ -68,14 +68,8 @@
   /* ==================== */
 
   /* font-family */
-  --font-family--body:
-    Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-family--headings:
-    'Playfair Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-family--body: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family--headings: "Playfair Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-family--nav: var(--font-family--body);
   --font-family--buttons: var(--font-family--body);
 
@@ -153,16 +147,12 @@
   /* UTILITY TOKENS       */
   /* ==================== */
 
-  /* border */
+  /* tokens */
   --border--invert: var(--gray--white);
   --border--border--primary: var(--gray--700);
-
-  /* radius */
   --radius--minimal: var(--radius--sm);
   --radius--rounded: var(--radius--md);
   --radius--full: var(--radius--3xl);
-
-  /* spacing */
   --spacing--none: 0rem;
   --spacing--xs: var(--spacing--half);
   --spacing--sm: var(--spacing--1);
@@ -170,8 +160,6 @@
   --spacing--lg: var(--spacing--4);
   --spacing--xl: var(--spacing--6);
   --spacing--2xl: var(--spacing--13);
-
-  /* text */
   --text--primary: var(--gray--700);
   --text--invert: var(--gray--white);
   --text--light: var(--brand--green--sage);
@@ -181,4 +169,5 @@
   --text--nav-color--top-link: var(--gray--white);
   --text--text--nav-color--cta: var(--brand--green--pine);
   --text--headings--invert: var(--gray--white);
+
 }

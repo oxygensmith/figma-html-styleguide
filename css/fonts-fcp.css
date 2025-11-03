@@ -1,0 +1,41 @@
+/* Font Awesome for icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+/* local fonts */
+@font-face {
+  font-family: 'area_normalregular_italic';
+  src: url('../fonts/fcp/area_normal_regular_italic-webfont.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'area_normalregular';
+  src: url('../fonts/fcp/area_normal_regular-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'area_normalbold_italic';
+  src: url('../fonts/fcp/area_normal_bold_italic-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'area_normalbold';
+  src: url('../fonts/fcp/area_normal_bold-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'urbanedemi_bold';
+  src: url('../fonts/fcp/Urbane-DemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'urbanedemi_bolditalic';
+  src: url('../fonts/fcp/Urbane-DemiBoldItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

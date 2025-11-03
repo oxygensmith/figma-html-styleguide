@@ -262,92 +262,92 @@
   background-color: var(--btn--btn-text--highlight) !important;
 }
 
-.has-color-border-invert {
-  color: var(--border--invert) !important;
+.has-color-tokens-border-invert {
+  color: var(--tokens--border--invert) !important;
 }
 
-.has-bg-border-invert {
-  background-color: var(--border--invert) !important;
+.has-bg-tokens-border-invert {
+  background-color: var(--tokens--border--invert) !important;
 }
 
-.has-color-border-border-primary {
-  color: var(--border--border--primary) !important;
+.has-color-tokens-border-border-primary {
+  color: var(--tokens--border--border--primary) !important;
 }
 
-.has-bg-border-border-primary {
-  background-color: var(--border--border--primary) !important;
+.has-bg-tokens-border-border-primary {
+  background-color: var(--tokens--border--border--primary) !important;
 }
 
-.has-color-text-primary {
-  color: var(--text--primary) !important;
+.has-color-tokens-text-primary {
+  color: var(--tokens--text--primary) !important;
 }
 
-.has-bg-text-primary {
-  background-color: var(--text--primary) !important;
+.has-bg-tokens-text-primary {
+  background-color: var(--tokens--text--primary) !important;
 }
 
-.has-color-text-invert {
-  color: var(--text--invert) !important;
+.has-color-tokens-text-invert {
+  color: var(--tokens--text--invert) !important;
 }
 
-.has-bg-text-invert {
-  background-color: var(--text--invert) !important;
+.has-bg-tokens-text-invert {
+  background-color: var(--tokens--text--invert) !important;
 }
 
-.has-color-text-light {
-  color: var(--text--light) !important;
+.has-color-tokens-text-light {
+  color: var(--tokens--text--light) !important;
 }
 
-.has-bg-text-light {
-  background-color: var(--text--light) !important;
+.has-bg-tokens-text-light {
+  background-color: var(--tokens--text--light) !important;
 }
 
-.has-color-text-headings-primary {
-  color: var(--text--headings--primary) !important;
+.has-color-tokens-text-headings-primary {
+  color: var(--tokens--text--headings--primary) !important;
 }
 
-.has-bg-text-headings-primary {
-  background-color: var(--text--headings--primary) !important;
+.has-bg-tokens-text-headings-primary {
+  background-color: var(--tokens--text--headings--primary) !important;
 }
 
-.has-color-text-footer-color {
-  color: var(--text--footer-color) !important;
+.has-color-tokens-text-footer-color {
+  color: var(--tokens--text--footer-color) !important;
 }
 
-.has-bg-text-footer-color {
-  background-color: var(--text--footer-color) !important;
+.has-bg-tokens-text-footer-color {
+  background-color: var(--tokens--text--footer-color) !important;
 }
 
-.has-color-text-link-color {
-  color: var(--text--link-color) !important;
+.has-color-tokens-text-link-color {
+  color: var(--tokens--text--link-color) !important;
 }
 
-.has-bg-text-link-color {
-  background-color: var(--text--link-color) !important;
+.has-bg-tokens-text-link-color {
+  background-color: var(--tokens--text--link-color) !important;
 }
 
-.has-color-text-nav-color-top-link {
-  color: var(--text--nav-color--top-link) !important;
+.has-color-tokens-text-nav-color-top-link {
+  color: var(--tokens--text--nav-color--top-link) !important;
 }
 
-.has-bg-text-nav-color-top-link {
-  background-color: var(--text--nav-color--top-link) !important;
+.has-bg-tokens-text-nav-color-top-link {
+  background-color: var(--tokens--text--nav-color--top-link) !important;
 }
 
-.has-color-text-text-nav-color-cta {
-  color: var(--text--text--nav-color--cta) !important;
+.has-color-tokens-text-text-nav-color-cta {
+  color: var(--tokens--text--text--nav-color--cta) !important;
 }
 
-.has-bg-text-text-nav-color-cta {
-  background-color: var(--text--text--nav-color--cta) !important;
+.has-bg-tokens-text-text-nav-color-cta {
+  background-color: var(--tokens--text--text--nav-color--cta) !important;
 }
 
-.has-color-text-headings-invert {
-  color: var(--text--headings--invert) !important;
+.has-color-tokens-text-headings-invert {
+  color: var(--tokens--text--headings--invert) !important;
 }
 
-.has-bg-text-headings-invert {
-  background-color: var(--text--headings--invert) !important;
+.has-bg-tokens-text-headings-invert {
+  background-color: var(--tokens--text--headings--invert) !important;
 }
 
 /* END COLOR UTILITIES */
