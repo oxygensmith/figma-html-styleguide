@@ -277,7 +277,7 @@ function addTypographyInfo() {
   });
 }
 
-// Function to generate accessibility/WCAG contrast swatches (UPDATED)
+// Function to generate accessibility/WCAG contrast swatches (UPDATED WITH COLOR FILTERING)
 async function generateAccessibilitySwatches() {
   const container = document.querySelector('#accessibility-swatches');
   if (!container) return;
@@ -287,6 +287,7 @@ async function generateAccessibilitySwatches() {
 
   // Generate all possible combinations
   const combinations = [];
+  const uniqueBackgroundColors = new Set();
 
   for (let i = 0; i < brandColors.length; i++) {
     for (let j = 0; j < brandColors.length; j++) {
@@ -306,6 +307,9 @@ async function generateAccessibilitySwatches() {
           contrastRatio: contrastRatio,
           wcag: wcagLevels,
         });
+
+        // Track unique background colors for filter buttons
+        uniqueBackgroundColors.add(bg.humanName);
       }
     }
   }
@@ -313,20 +317,46 @@ async function generateAccessibilitySwatches() {
   // Sort by contrast ratio (highest to lowest)
   combinations.sort((a, b) => b.contrastRatio - a.contrastRatio);
 
+  // Generate color filter buttons
+  generateColorFilterButtons(Array.from(uniqueBackgroundColors).sort());
+
   // Generate HTML for each combination
   container.innerHTML = '';
 
   combinations.forEach((combo) => {
     const swatchDiv = document.createElement('div');
     swatchDiv.className = 'sg-contrast-swatch';
-    swatchDiv.style.backgroundColor = combo.background.value;
-    swatchDiv.style.color = combo.foreground.value;
+
+    console.log('Raw background name:', combo.background.name);
+    console.log('Raw foreground name:', combo.foreground.name);
+
+    // Add utility classes for styling (instead of inline styles)
+    const bgClassRaw = 'has-bg-' + combo.background.name;
+    const colorClassRaw = 'has-color-' + combo.foreground.name;
+
+    // Replace all double dashes with single dashes (on string values)
+    const bgClass = bgClassRaw.replace(/-{2,}/g, '-');
+    const colorClass = colorClassRaw.replace(/-{2,}/g, '-');
+
+    console.log('Converted classnames:', bgClass, colorClass);
+
+    swatchDiv.classList.add(bgClass, colorClass);
 
     // Add filter classes based on WCAG compliance
     if (combo.wcag.aaLarge) swatchDiv.classList.add('contrast-aa-large');
     if (combo.wcag.aaAll) swatchDiv.classList.add('contrast-aa-all');
     if (combo.wcag.aaaLarge) swatchDiv.classList.add('contrast-aaa-large');
     if (combo.wcag.aaaAll) swatchDiv.classList.add('contrast-aaa-all');
+
+    // Add data attributes for color filtering
+    swatchDiv.setAttribute(
+      'data-bg-color',
+      combo.background.humanName.toLowerCase().replace(/\s+/g, '-')
+    );
+    swatchDiv.setAttribute(
+      'data-fg-color',
+      combo.foreground.humanName.toLowerCase().replace(/\s+/g, '-')
+    );
 
     // Determine compliance text
     let complianceText = '';
@@ -356,77 +386,109 @@ async function generateAccessibilitySwatches() {
 
     container.appendChild(swatchDiv);
   });
+
+  // Initialize filter buttons after swatches are generated
+  setTimeout(() => {
+    initializeContrastFilters();
+  }, 0);
 }
 
-// Function to initialize contrast filter buttons
-function initializeContrastFilters() {
-  const filterButtons = document.querySelectorAll('.sg-filter-btn');
-  const swatches = document.querySelectorAll('.sg-contrast-swatch');
+// Function to generate color filter buttons
+function generateColorFilterButtons(colorNames) {
+  const colorFiltersContainer = document.getElementById('color-filters');
+  if (!colorFiltersContainer) return;
 
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      // Update active button state
-      filterButtons.forEach((btn) => btn.classList.remove('active'));
-      button.classList.add('active');
+  colorFiltersContainer.innerHTML = '';
 
-      // Get filter value
-      const filter = button.getAttribute('data-filter');
+  // Add "All Colors" button
+  const allBtn = document.createElement('button');
+  allBtn.className = 'sg-filter-btn sg-color-filter active';
+  allBtn.setAttribute('data-color-filter', 'all');
+  allBtn.textContent = 'All Colors';
+  colorFiltersContainer.appendChild(allBtn);
 
-      // Apply filter
-      swatches.forEach((swatch) => {
-        if (filter === 'all') {
-          swatch.classList.remove('hidden');
-        } else {
-          // Show only swatches that have the matching class
-          if (swatch.classList.contains(`contrast-${filter}`)) {
-            swatch.classList.remove('hidden');
-          } else {
-            swatch.classList.add('hidden');
-          }
-        }
-      });
-    });
+  // Add button for each unique background color
+  colorNames.forEach((colorName) => {
+    const btn = document.createElement('button');
+    btn.className = 'sg-filter-btn sg-color-filter';
+    btn.setAttribute(
+      'data-color-filter',
+      colorName.toLowerCase().replace(/\s+/g, '-')
+    );
+    btn.textContent = colorName;
+    colorFiltersContainer.appendChild(btn);
   });
 }
 
-// Function to calculate contrast ratio between two hex colors
-function calculateContrastRatio(hex1, hex2) {
-  const lum1 = getRelativeLuminance(hex1);
-  const lum2 = getRelativeLuminance(hex2);
+// Function to initialize contrast filter buttons (UPDATED)
+function initializeContrastFilters() {
+  const complianceButtons = document.querySelectorAll(
+    '.sg-filter-btn:not(.sg-color-filter)'
+  );
+  const colorButtons = document.querySelectorAll('.sg-color-filter');
+  const swatches = document.querySelectorAll('.sg-contrast-swatch');
 
-  const lighter = Math.max(lum1, lum2);
-  const darker = Math.min(lum1, lum2);
+  let activeComplianceFilter = 'all';
+  let activeColorFilter = 'all';
 
-  return (lighter + 0.05) / (darker + 0.05);
-}
+  // Apply filters based on current selections
+  function applyFilters() {
+    swatches.forEach((swatch) => {
+      let showSwatch = true;
 
-// Function to get relative luminance from hex color
-function getRelativeLuminance(hex) {
-  // Remove # if present
-  hex = hex.replace('#', '');
+      // Check compliance filter
+      if (activeComplianceFilter !== 'all') {
+        if (!swatch.classList.contains(`contrast-${activeComplianceFilter}`)) {
+          showSwatch = false;
+        }
+      }
 
-  // Convert to RGB
-  const r = parseInt(hex.substr(0, 2), 16) / 255;
-  const g = parseInt(hex.substr(2, 2), 16) / 255;
-  const b = parseInt(hex.substr(4, 2), 16) / 255;
+      // Check color filter
+      if (activeColorFilter !== 'all') {
+        const bgColor = swatch.getAttribute('data-bg-color');
+        if (bgColor !== activeColorFilter) {
+          showSwatch = false;
+        }
+      }
 
-  // Apply sRGB transformation
-  const rsRGB = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4);
-  const gsRGB = g <= 0.03928 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4);
-  const bsRGB = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4);
+      // Show or hide swatch
+      if (showSwatch) {
+        swatch.classList.remove('hidden');
+      } else {
+        swatch.classList.add('hidden');
+      }
+    });
+  }
 
-  // Calculate relative luminance
-  return 0.2126 * rsRGB + 0.7152 * gsRGB + 0.0722 * bsRGB;
-}
+  // Compliance filter buttons
+  complianceButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      // Update active button state
+      complianceButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
 
-// Function to determine WCAG compliance levels
-function getWCAGCompliance(ratio) {
-  return {
-    aaLarge: ratio >= 3, // 18pt+ or 14pt+ bold
-    aaAll: ratio >= 4.5, // All text sizes
-    aaaLarge: ratio >= 4.5, // 18pt+ or 14pt+ bold
-    aaaAll: ratio >= 7, // All text sizes
-  };
+      // Get filter value
+      activeComplianceFilter = button.getAttribute('data-filter');
+
+      // Apply combined filters
+      applyFilters();
+    });
+  });
+
+  // Color filter buttons
+  colorButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      // Update active button state
+      colorButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Get filter value
+      activeColorFilter = button.getAttribute('data-color-filter');
+
+      // Apply combined filters
+      applyFilters();
+    });
+  });
 }
 
 // Function to calculate contrast ratio between two hex colors

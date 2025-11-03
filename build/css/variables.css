@@ -111,10 +111,6 @@
   --line-height--base: 1.667;
   --line-height--headings: 1.4;
 
-  /* letter-spacing */
-  --letter-spacing--p: 0em;
-  --letter-spacing--headings: 0em;
-
   /* ==================== */
   /* BLOCKS               */
   /* ==================== */
@@ -131,7 +127,6 @@
   --btn--bg--secondary--invert: var(--brand--green--pine);
   --btn--bg--alert: var(--brand--yellow--sand);
   --btn--btn-text--highlight: var(--gray--700);
-  --btn--radius: var(--radius--full);
 
   /* card */
   --card--radius--desktop: var(--radius--xl);

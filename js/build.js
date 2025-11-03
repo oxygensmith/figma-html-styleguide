@@ -1,3 +1,5 @@
+/* this interacts with Styledictionary */
+
 import StyleDictionary from 'style-dictionary';
 import { readFileSync, writeFileSync } from 'fs';
 
@@ -71,6 +73,8 @@ tokens = addUnitMetadata(tokens);
 
 // Write the tokens for Style Dictionary
 writeFileSync('./tokens/tokens.json', JSON.stringify(tokens, null, 2));
+console.log('✓ tokens.json written successfully');
+console.log('Token count:', Object.keys(tokens).length);
 
 // Register custom name transform with double dashes
 StyleDictionary.registerTransform({
@@ -263,6 +267,58 @@ StyleDictionary.registerFormat({
   },
 });
 
+// Register utilities CSS format
+StyleDictionary.registerFormat({
+  name: 'css/utilities',
+  format: ({ dictionary }) => {
+    console.log('Total tokens:', dictionary.allTokens.length);
+    console.log('Token types:', [
+      ...new Set(dictionary.allTokens.map((t) => t.type)),
+    ]);
+
+    const colorTokens = dictionary.allTokens.filter(
+      (token) => token.type === 'color'
+    );
+
+    console.log('Color tokens found:', colorTokens.length);
+
+    let output = '/* ========================================= */\n';
+    output += '/* AUTO-GENERATED UTILITY CLASSES           */\n';
+    output += '/* Generated from Figma variables           */\n';
+    output += '/* Do not edit manually                     */\n';
+    output += '/* ========================================= */\n\n';
+
+    output += '/* COLOR UTILITIES */\n\n';
+
+    colorTokens.forEach((token) => {
+      // Remove 'primitives', 'typography', 'blocks', and 'color' from the path
+      const path = token.path.filter(
+        (p) =>
+          p !== 'primitives' &&
+          p !== 'typography' &&
+          p !== 'blocks' &&
+          p !== 'color'
+      );
+      const className = path.join('-').replace(/--/g, '-');
+      const varName = '--' + path.join('--');
+
+      // Text color utility
+      output += `.has-color-${className} {\n`;
+      output += `  color: var(${varName}) !important;\n`;
+      output += `}\n\n`;
+
+      // Background color utility
+      output += `.has-bg-${className} {\n`;
+      output += `  background-color: var(${varName}) !important;\n`;
+      output += `}\n\n`;
+    });
+
+    output += '/* END COLOR UTILITIES */\n';
+
+    return output;
+  },
+});
+
 // Register custom transform group
 StyleDictionary.registerTransformGroup({
   name: 'custom/css',
@@ -278,11 +334,15 @@ const config = {
   platforms: {
     css: {
       transformGroup: 'custom/css',
-      buildPath: '../build/css/',
+      buildPath: './build/css/',
       files: [
         {
           destination: 'variables.css',
           format: 'css/variables-with-references',
+        },
+        {
+          destination: 'utilities.css',
+          format: 'css/utilities',
         },
       ],
     },
@@ -290,4 +350,16 @@ const config = {
 };
 
 const sd = new StyleDictionary(config);
+
+// Debug: Show resolved paths
+console.log('\n=== Resolved Build Paths ===');
+console.log('Current working directory:', process.cwd());
+console.log('Build script location:', import.meta.url);
+console.log('Configured buildPath:', config.platforms.css.buildPath);
+
 await sd.buildAllPlatforms();
+
+console.log('\n=== Checking if files exist ===');
+import { existsSync } from 'fs';
+console.log('variables.css exists:', existsSync('../build/css/variables.css'));
+console.log('utilities.css exists:', existsSync('../build/css/utilities.css'));

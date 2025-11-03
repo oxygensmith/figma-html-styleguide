@@ -245,3 +245,21 @@ $min-element-width: 300px;
 .sg-contrast-swatch.hidden {
   display: none;
 }
+
+// Filter groups
+.sg-filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--sm);
+  flex-wrap: wrap;
+
+  strong {
+    margin-right: var(--spacing--xs);
+  }
+}
+
+#color-filters {
+  display: flex;
+  gap: var(--spacing--xs);
+  flex-wrap: wrap;
+}
