@@ -236,18 +236,23 @@ https://github.com/oxygensmith/figma-html-styleguide/blob/main/.LICENSE
 
 ## TODOs / Roadmap
 
-- Buttons variables need to be interpolated and populated (including complex buttons - transforms, shadows, radius)
+- new: Debug 'multiple dist' process - no longer creating related files to [project]/index.html in dist/[project] folder
 - Build process needs combined build + preview script
 - Build process should build index.html with buttons
+- Buttons variables need to be interpolated, populated, demonstrated (including complex buttons - transforms, shadows, radius)
+  — Do the same with spacing
 - Explain diff between figma-?.json and tokens-?.json
+- In addition to codesnippet.css, have basic Divi markup section (for cards, banners, and so on) (and variables for it)
+- Then add Divi Supreme markup that gets styled
+  — Then add a way to do custom sections in here - when regenerated, these sections are left alone.
 
 ## Acknowledgments
 
 Built with:
 
-- [Style Dictionary](https://amzn.github.io/style-dictionary/) - Token transformation
+- [Style Dictionary](https://github.com/style-dictionary/style-dictionary) - Token transformation
 - [Parcel](https://parceljs.org/) - Development bundler
-- [Figma Design Tokens Plugin](https://www.figma.com/community/plugin/888356646278934516) - Token export
+- [Design Tokens Plugin for Figma](https://www.figma.com/community/plugin/888356646278934516) - Token export
 
 ---
 

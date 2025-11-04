@@ -84,3 +84,7 @@ clients.forEach((client) => {
   console.log(`   http://localhost:8080/${client}/`);
 });
 console.log('');
+
+// Generate the landing page
+console.log('🎨 Generating landing page...\n');
+execSync('node scripts/generate-index.js', { stdio: 'inherit' });

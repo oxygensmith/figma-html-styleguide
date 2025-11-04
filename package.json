@@ -2,7 +2,7 @@
   "name": "styledictionary",
   "version": "1.0.0",
   "type": "module",
-  "description": "Interface for Style Dictionary to prebuild web projects from Figma.",
+  "description": "Interface for Style Dictionary to prebuild Arcana/Moonjoule web projects from Figma.",
   "scripts": {
     "html": "node scripts/generate-html.js",
     "tokens": "node scripts/build-tokens.js",
@@ -10,11 +10,15 @@
     "build": "node scripts/build-all.js",
     "build:fcp": "parcel build src/index-fcp.html --dist-dir dist/fcp --public-url ./",
     "build:sqmhc": "parcel build src/index-sqmhc.html --dist-dir dist/sqmhc --public-url ./",
+    "generate-landing": "node scripts/generate-index.js",
     "preview": "http-server dist -p 8080 -o",
+    "build-and-preview": "npm run build && npm run preview",
     "dev": "npm run html && npm run tokens && parcel src/index-*.html",
     "dev:watch": "npm run html && npm run tokens && npm run watch:tokens & parcel src/index-*.html",
     "watch:tokens": "nodemon --watch tokens/figma-*.json --exec 'npm run tokens'",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "watch:build": "nodemon --watch src --watch build/css --watch css --watch js --ext html,css,scss,js --exec 'npm run build'",
+    "watch-and-preview": "concurrently --kill-others \"npm run watch:build\" \"npm run preview\""
   },
   "keywords": [],
   "author": "",
@@ -24,6 +28,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.16.0",
+    "concurrently": "^9.2.1",
     "http-server": "^14.1.1",
     "nodemon": "^3.1.10",
     "parcel": "^2.16.0",

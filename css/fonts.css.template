@@ -9,6 +9,20 @@
    - cp css/fonts.css.template css/fonts-fcp.css
    
    Then uncomment and edit the section(s) you need.
+
+   Remote loading of fonts is the easiest method to set up for
+   this styleguide app, so do that with Google/Adobe Fonts if possible.
+   
+   A site using custom fonts will need to have the fonts in .woff2
+   format and dropped into fonts (TTF fonts are usually not licensed
+   for web distribution). 
+   
+   Make sure you drop them in a fonts subfolder 
+   named after your project, and reference them properly in
+   the css/fonts-*.css file. Example:
+
+   font-family: 'urbanedemi_bold';
+   src: url('../fonts/fcp/Urbane-DemiBold.woff2') format('woff2');
 */
 
 /* ============================================================ */
