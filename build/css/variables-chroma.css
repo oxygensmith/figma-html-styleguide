@@ -1,0 +1,511 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+
+  /* ========================== */
+  /* Primitives */
+  /* ========================== */
+
+  /* color */
+  --translucent-dark: #00000099;
+  --translucent-white: #ffffff99;
+  --transparent: #ffffff00;
+
+  /* color > brand */
+  --amethyst: #351150;
+  --berry: #e20c6d;
+  --blue: #0a6db4;
+  --blueviolet: #2c308c;
+  --bubblegum: #ffa4b3;
+  --cobalt: #1e2280;
+  --grass: #5cc266;
+  --lemon: #eddf1a;
+  --lime: #9bd441;
+  --orange: #fc6e31;
+  --purple: #622b8c;
+  --yellow: #f9bf2d;
+
+  /* color > grey */
+  --black: #000000;
+  --gray-100: #f1f1f1;
+  --gray-200: #d3d3d3;
+  --gray-300: #b3b3b3;
+  --gray-400: #afafaf;
+  --gray-500: #979797;
+  --gray-600: #7c7c7c;
+  --gray-700: #484848;
+  --gray-800: #343434;
+  --gray-900: #232323;
+  --white: #ffffff;
+
+  /* color > tints */
+  --purple-100: #b382d9;
+  --purple-200: #a063cf;
+  --purple-300: #8d44c5;
+  --purple-400: #7835ac;
+  --purple-500: var(--purple);
+  --purple-600: #4c226d;
+  --purple-700: #421d5e;
+  --purple-800: #37184e;
+  --purple-900: #2c133e;
+
+  /* content > max-width */
+  --base-desktop: 75.75rem;
+  --base-mobile: 330;
+  --narrow-desktop: 48.125rem;
+  --narrow-mobile: 300;
+  --none: 100%;
+
+  /* font-weight */
+  --weight-bold: 700;
+  --weight-light: 300;
+  --weight-medium: 500;
+  --weight-regular: 400;
+  --weight-semibold: 600;
+
+  /* line-height > percent */
+  --leading-display-percent: 105;
+  --leading-normal-percent: 140;
+  --leading-relaxed-percent: 150;
+  --leading-snug-percent: 125;
+  --leading-tight-percent: 120;
+
+  /* line-height > unitless */
+  --leading-display: 1.05;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.5;
+  --leading-snug: 1.25;
+  --leading-tight: 1.2;
+
+  /* null */
+  --fallback-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;;
+  --fallback-serif: Georgia, 'Times New Roman', serif;;
+  --font-family-sans: Poppins, var(--fallback-sans);
+  --font-family-serif: Poppins, var(--fallback-serif);
+
+  /* radius */
+  --radius-2xl: 4rem;
+  --radius-3xl: 8rem;
+  --radius-lg: 1.5rem;
+  --radius-md: 1rem;
+  --radius-round: 37.5rem;
+  --radius-sm: 0.5rem;
+  --radius-xl: 2rem;
+  --radius-xs: 0.25rem;
+
+  /* spacing */
+  --spacing-2xl: 9rem;
+  --spacing-3xl: 16rem;
+  --spacing-lg: 3rem;
+  --spacing-md: 1.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-xl: 4.5rem;
+  --spacing-xs: 0.25rem;
+
+
+  /* ========================== */
+  /* Tokens - Border + Radius */
+  /* ========================== */
+
+  /* border-radius */
+  --radius-full: 62.4375rem;
+  --radius-minimal: 0rem;
+  --radius-standard: 3.125rem;
+
+  /* border-width > desktop */
+  --border-width-regular-lg: 0.25rem;
+  --border-width-thick-lg: 1.875rem;
+  --border-width-thin-lg: 0.0625rem;
+
+  /* border-width > mobile */
+  --border-width-large-xs: 1.5rem;
+  --border-width-regular-xs: 0.25rem;
+  --border-width-thin-xs: 0.0625rem;
+
+  /* border-width > tablet */
+  --border-width-large-md: 1.6875rem;
+  --border-width-regular-md: 0.25rem;
+  --border-width-thin-md: 0.0625rem;
+
+
+  /* ========================== */
+  /* Tokens - Colour */
+  /* ========================== */
+
+  /* border-color */
+  --border-berry: var(--berry);
+  --border-blue: var(--blue);
+  --border-blueviolet: var(--blueviolet);
+  --border-bubblegum: var(--bubblegum);
+  --border-colour-invert: var(--white);
+  --border-lemon: var(--lemon);
+  --border-lime: var(--lime);
+  --border-orange: var(--orange);
+  --border-primary: var(--purple);
+  --border-secondary: var(--blue);
+  --border-yellow: var(--yellow);
+
+  /* color-tokens */
+  --color-highlight: var(--yellow);
+  --color-invert: var(--body-bg-color);
+  --color-primary: var(--purple);
+  --color-secondary: var(--blue);
+  --color-tertiary: var(--blueviolet);
+
+  /* text-color > body-text */
+  --body-text-accent: var(--color-secondary);
+  --body-text-accent-invert: var(--color-invert);
+  --body-text-base: var(--gray-900);
+  --body-text-base-invert: var(--color-invert);
+
+  /* text-color > headings */
+  --headings-invert: var(--white);
+  --headings-meta: var(--blue);
+  --headings-name: var(--blueviolet);
+  --headings-primary: var(--purple);
+
+  /* text-color > link-color */
+  --link-color: var(--purple);
+  --link-color-active: var(--purple-200);
+  --link-color-invert: var(--white);
+  --link-color-invert-active: var(--purple-100);
+
+
+  /* ========================== */
+  /* Tokens - Forms */
+  /* ========================== */
+
+  /* null */
+  --form-field-border-radius: 0rem;
+  --form-field-border-width: 0.125rem;
+  --form-field-label-color: var(--body-text-base);
+  --form-field-placeholder-colour: var(--translucent-dark);
+  --form-field-x-padding: 24;
+  --form-field-y-padding: 16;
+
+
+  /* ========================== */
+  /* Tokens - Nav */
+  /* ========================== */
+
+  /* desktop > dropdown */
+  --bg: var(--color-secondary);
+  --bg-color: var(--color-primary);
+  --color: var(--white);
+  --color-hover: var(--color-secondary);
+  --dropdown-bg: var(--color-secondary);
+  --dropdown-link-color: var(--white);
+  --dropdown-link-color-hover: var(--color-secondary);
+  --link-color: var(--white);
+  --link-color-hover: var(--color-secondary);
+  --text-transform: none;
+  --text-transform-2: none;
+  --toggler-color: var(--color-secondary);
+
+  /* desktop > toplink */
+  --desktop-toplink-color: var(--white);
+  --desktop-toplink-color-hover: var(--color-secondary);
+  --desktop-toplink-color-invert: var(--color-primary);
+  --desktop-toplink-text-transform: none;
+
+  /* mobile > dropdown */
+  --link-color: var(--color-primary);
+
+  /* mobile > toplink */
+  --mobile-toggler-color: var(--white);
+  --mobile-toplink-color: var(--white);
+  --mobile-toplink-color-hover: var(--color-secondary);
+  --mobile-toplink-text-transform: none;
+  --text-transform: none;
+
+
+  /* ========================== */
+  /* Tokens - Sections */
+  /* ========================== */
+
+  /* body */
+  --body-bg-color: var(--white);
+  --donate-bg-color: var(--cobalt);
+
+  /* footer */
+  --footer-bg-color: var(--color-primary);
+  --footer-bg-color-alt: var(--amethyst);
+  --footer-heading-color: var(--white);
+  --footer-link-color: var(--white);
+  --footer-subheading-color: var(--translucent-white);
+  --footer-text-color: var(--color-invert);
+
+  /* footer > desktop */
+  --footer-desktop-x-padding: 2.25rem;
+  --footer-desktop-y-padding: 2.25rem;
+
+  /* footer > mobile */
+  --footer-mobile-x-padding: 1.5rem;
+  --footer-mobile-y-padding: 1.5rem;
+
+  /* header */
+  --bg-header: var(--color-primary);
+  --header-desktop-position: fixed;
+  --header-mobile-position: fixed;
+
+  /* header > desktop */
+  --header-desktop-x-padding: 8.875rem;
+  --header-desktop-y-padding: 2.25rem;
+  --logo-bg: var(--body-bg-color);
+  --logo-height: 8.5rem;
+  --logo-width: 18rem;
+
+  /* header > mobile */
+  --header-mobile-x-padding: 1.5rem;
+  --header-mobile-y-padding: 1.5rem;
+
+  /* highlight-block > radius */
+  --block-desktop-radius: var(--card-border-radius-lg);
+  --block-mobile-radius: var(--card-border-radius-xs);
+
+  /* logo > footer > desktop */
+  --footer-logo-height-desktop: 8.5rem;
+  --footer-logo-width-desktop: 18rem;
+
+  /* logo > footer > mobile */
+  --footer-logo-height-mobile: 8.5rem;
+  --footer-logo-width-mobile: 18rem;
+
+  /* logo > header > desktop */
+  --header-logo-height-mobile: 8.5rem;
+  --header-logo-width-desktop: 18rem;
+
+  /* logo > header > mobile */
+  --header-logo-height-mobile: 8.5rem;
+  --header-logo-width-mobile: 18rem;
+
+  /* section > desktop */
+  --section-desktop-x-padding-base: 9.375rem;
+  --section-desktop-x-padding-hero: 8rem;
+  --section-desktop-x-padding-large: 16rem;
+  --section-desktop-x-padding-narrow: 4.6875rem;
+  --section-desktop-y-padding: 4rem;
+
+  /* section > mobile */
+  --section-mobile-x-padding-base: 1.5rem;
+  --section-mobile-x-padding-wide: 4rem;
+  --section-mobile-y-padding: 3.5rem;
+
+
+  /* ========================== */
+  /* Tokens - Typography */
+  /* ========================== */
+
+  /* font-family */
+  --font-family-base: var(--font-family-sans);
+  --font-family-body-alt: var(--font-family-sans);
+  --font-family-buttons: var(--font-family-base);
+  --font-family-headings: var(--font-family-sans);
+  --font-family-headings-alt: var(--font-family-sans);
+  --font-family-nav: var(--font-family-base);
+
+  /* font-size > desktop */
+  --heading-h1-lg: 2.875rem;
+  --heading-h2-lg: 2.625rem;
+  --heading-h3-lg: 1.875rem;
+  --heading-h4-lg: 1.75rem;
+  --heading-h5-lg: 1.375rem;
+  --heading-h6-lg: 1.0625rem;
+  --p-base-lg: 1.125rem;
+  --p-large-lg: 1.375rem;
+  --p-small-lg: 0.9375rem;
+  --poster-lg: 4.375rem;
+
+  /* font-size > mobile */
+  --heading-h1-xs: 1.875rem;
+  --heading-h2-xs: 1.8125rem;
+  --heading-h3-xs: 1.625rem;
+  --heading-h4-xs: 1.4375rem;
+  --heading-h5-xs: 1.3125rem;
+  --heading-h6-xs: 0.875rem;
+  --p-base-xs: 1rem;
+  --p-large-xs: 1.125rem;
+  --p-small-xs: 0.875rem;
+  --poster-xs: 2.6875rem;
+
+  /* font-size > tablet */
+  --heading-h1-md: 2.375rem;
+  --heading-h2-md: 2.2188rem;
+  --heading-h3-md: 1.75rem;
+  --heading-h4-md: 1.5938rem;
+  --heading-h5-md: 1.3438rem;
+  --heading-h6-md: 0.9688rem;
+  --p-base-md: 1.0625rem;
+  --p-large-md: 1.25rem;
+  --p-small-md: 0.9063rem;
+  --poster-md: 3.5313rem;
+
+  /* font-weight */
+  --base-font-weight: var(--weight-regular);
+  --color: #ffffff;
+  --h1-font-weight: var(--weight-bold);
+  --h2-font-weight: var(--weight-regular);
+  --h3-font-weight: var(--weight-semibold);
+  --h4-font-weight: var(--weight-regular);
+  --h5-font-weight: var(--weight-regular);
+  --h6-font-weight: var(--weight-regular);
+  --headings-font-weight: var(--weight-regular);
+  --p-base-font-weight: var(--weight-regular);
+  --p-large-font-weight: var(--weight-regular);
+  --p-small-font-weight: var(--weight-regular);
+  --poster-font-weight: var(--weight-regular);
+
+  /* font-weight > strings */
+  --base-font-weight: 400;
+  --bold-font-weight: 700;
+  --h1-font-weight: 700;
+  --h2-font-weight: 400;
+  --h3-font-weight: 400;
+  --h4-font-weight: 400;
+  --h5-font-weight: 400;
+  --h6-font-weight: 400;
+  --p-base-font-weight: 400;
+  --p-large-font-weight: 400;
+  --p-small-font-weight: 400;
+  --poster-font-weight: 400;
+
+  /* line-height */
+  --h1-line-height: var(--leading-tight-percent);
+  --h2-line-height: var(--leading-tight-percent);
+  --h3-line-height: var(--leading-normal-percent);
+  --h4-line-height: var(--leading-snug-percent);
+  --h5-line-height: var(--leading-snug-percent);
+  --h6-line-height: var(--leading-snug-percent);
+  --p-large-line-height: var(--leading-relaxed-percent);
+  --p-line-height: var(--leading-relaxed-percent);
+  --p-small-line-height: var(--leading-tight-percent);
+  --poster-line-height: var(--leading-snug-percent);
+
+
+  /* ========================== */
+  /* Components - Buttons */
+  /* ========================== */
+
+  /* all */
+  --btn-border-radius: var(--radius-round);
+  --btn-border-width: var(--border-width-thin-lg);
+  --btn-font-weight: var(--weight-bold);
+  --btn-text-transform: uppercase;
+
+  /* btn > color-variations > borderless > hover */
+  --btn-primary-bg-color-hover-2: var(--color-secondary);
+  --btn-primary-border-color-hover-2: var(--color-secondary);
+  --btn-primary-text-color-hover-2: var(--white);
+
+  /* color-variations > borderless */
+  --btn-bordelerss-bg-color: var(--transparent);
+  --btn-secondary-border-color: var(--transparent);
+  --btn-secondary-text-color: var(--color-secondary);
+
+  /* color-variations > borderless > hover */
+  --btn-borderless-bg-color-hover: var(--color-secondary);
+  --btn-borderless-border-color-hover: var(--color-secondary);
+  --btn-borderless-text-color-hover: var(--white);
+
+  /* color-variations > borderless-invert */
+  --btn-bordelerss-bg-color-invert: var(--transparent);
+  --btn-borderless-border-color-invert: var(--transparent);
+  --btn-borderless-text-color-invert: var(--color-secondary);
+
+  /* color-variations > borderless-invert > hover */
+  --btn-borderless-bg-color-invert-hover: var(--color-secondary);
+  --btn-borderless-border-color-invert-hover: var(--color-secondary);
+  --btn-borderless-text-color-invert-hover: var(--white);
+
+  /* color-variations > hover */
+  --btn-primary-bg-color-hover: var(--color-secondary);
+  --btn-primary-border-color-hover: var(--color-secondary);
+  --btn-primary-text-color-hover: var(--white);
+
+  /* color-variations > invert */
+  --btn-invert-bg-color: var(--transparent);
+  --btn-invert-border-color: var(--color-invert);
+  --btn-invert-text-color: var(--color-invert);
+
+  /* color-variations > invert > hover */
+  --btn-invert-bg-color-hover: var(--color-primary);
+  --btn-invert-border-color-hover: var(--color-invert);
+  --btn-invert-text-color-hover: var(--color-invert);
+
+  /* color-variations > primary */
+  --btn-primary-bg-color: var(--transparent);
+  --btn-primary-border-color: var(--color-primary);
+  --btn-primary-text-color: var(--color-primary);
+
+  /* color-variations > primary > hover */
+  --btn-primary-bg-color-hover: var(--color-highlight);
+  --btn-primary-border-color-hover: var(--color-primary);
+  --btn-primary-text-color-hover: var(--color-primary);
+
+  /* color-variations > secondary */
+  --btn-secondary-bg-color: var(--lemon);
+  --btn-secondary-border-color: var(--border-berry);
+  --btn-secondary-text-color: var(--berry);
+
+  /* color-variations > secondary > hover */
+  --btn-secondary-bg-color-hover: var(--berry);
+  --btn-secondary-border-color-hover: var(--border-lemon);
+  --btn-secondary-text-color-hover: var(--lemon);
+
+  /* sizing > desktop */
+  --btn-border-radius-lg: var(--radius-round);
+  --btn-font-size-lg: 1.125rem;
+
+  /* sizing > desktop > large-buttons */
+  --btn-padding-x-size-l-lg: 3rem;
+  --btn-padding-y-size-l-lg: 1.5rem;
+
+  /* sizing > desktop > regular-buttons */
+  --btn-padding-x-size-m-lg: 2.5rem;
+  --btn-padding-y-size-m-lg: 1.25rem;
+
+  /* sizing > desktop > small-buttons */
+  --btn-padding-x-size-s-lg: 1.5rem;
+  --btn-padding-y-size-s-lg: 0.75rem;
+
+  /* sizing > mobile */
+  --btn-border-radius-xs: var(--radius-round);
+  --btn-font-size-xs: 0.875rem;
+
+  /* sizing > mobile > large-buttons */
+  --btn-padding-x-size-l-xs: 2.25rem;
+  --btn-padding-y-size-l-xs: 1.125rem;
+
+  /* sizing > mobile > regular-buttons */
+  --btn-padding-x-size-m-xs: 1.5rem;
+  --btn-padding-y-size-m-xs: 0.75rem;
+
+  /* sizing > mobile > small-buttons */
+  --btn-padding-x-size-s-xs: 1rem;
+  --btn-padding-y-size-s-xs: 0.5rem;
+
+
+  /* ========================== */
+  /* Components - Cards */
+  /* ========================== */
+
+  /* borders > desktop > radius */
+  --card-border-radius-lg: 0rem;
+  --card-thumbnail-border-radius-alt-lg: 0rem;
+  --card-thumbnail-border-radius-lg: 3.125rem;
+
+  /* borders > desktop > width */
+  --card-border-width-alt-lg: var(--border-width-thick-lg);
+  --card-border-width-lg: var(--border-width-regular-lg);
+
+  /* borders > mobile */
+  --card-border-radius-xs: 0rem;
+  --card-border-width-xs: 0rem;
+
+  /* null */
+  --card-border-color: var(--transparent);
+  /* border is on the image not the card */
+  /* mixed border-radius: px 0 px 0 */
+  /* mixed border-width: sm sm lg sm */
+
+}

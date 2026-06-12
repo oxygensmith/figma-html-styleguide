@@ -1,0 +1,309 @@
+/* =========================== */
+/* STYLEGUIDE-ONLY STYLES      */
+/* (simplified pipeline)       */
+/* =========================== */
+
+// Branding
+.sg-our-watermark {
+  background-color: #2f305e;
+  color: #fff;
+  a {
+    color: #fff;
+    text-decoration: underline;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0 0.1rem 0;
+    img {
+      height: 40px;
+    }
+    .sg-aside-note {
+      font-size: 12px;
+    }
+    .sg-aside-content {
+      display: flex;
+      flex-flow: column;
+      .sg-styleguide-text {
+        font-size: 10px;
+        line-height: 1;
+      }
+      .sg-styleguide-client {
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.our-watermark {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0.15;
+  z-index: 1000;
+}
+
+// Variables
+$stat-margin-bottom: 0.5rem;
+$info-box-font-size: 0.75rem;
+$stat-label-font-size: 0.7rem;
+$swatch-height: 80px;
+$swatch-font-size: 0.75rem;
+$swatch-name-margin: 0.25rem;
+$stats-grid-gap: 0.5rem;
+$min-element-width: 300px;
+
+/* Typography element wrapper */
+.sg-typography-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--body-text-base);
+  flex-wrap: wrap;
+}
+
+/* Typography element (heading or paragraph) */
+.sg-typography-element {
+  flex: 1;
+  min-width: $min-element-width;
+  margin: 0;
+}
+
+/* Info box for typography stats */
+.sg-info-box {
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-minimal);
+  font-family: monospace;
+  font-size: $info-box-font-size;
+  flex: 1;
+  min-width: $min-element-width;
+}
+
+/* Grid layout for typography stats */
+.sg-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $stats-grid-gap;
+  text-align: center;
+}
+
+/* Column within stats grid */
+.sg-stats-column {
+  /* No specific styles needed - inherits from grid */
+}
+
+/* Breakpoint label (Mobile, Tablet, Desktop) */
+.sg-breakpoint-label {
+  font-weight: bold;
+  margin-bottom: $stat-margin-bottom;
+}
+
+/* Size value */
+.sg-size-value {
+  margin-bottom: $stat-margin-bottom;
+}
+
+/* Stat label (Weight, Spacing, Line Height) */
+.sg-stat-label {
+  color: var(--gray-500);
+  font-size: $stat-label-font-size;
+  margin-bottom: $stat-margin-bottom;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* Stat value */
+.sg-stat-value {
+  margin-bottom: $stat-margin-bottom;
+}
+
+/* Last stat value (no margin) */
+.sg-stat-value-last {
+  margin-bottom: 0;
+}
+
+/* Swatch container */
+.sg-swatch-container {
+  /* Container styles if needed */
+}
+
+/* Swatch color block */
+.sg-swatch-color {
+  height: $swatch-height;
+  border-radius: var(--radius-minimal);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Swatch with border (for light colors) */
+.sg-swatch-border {
+  border: 1px solid var(--gray-200);
+}
+
+/* Swatch text info */
+.sg-swatch-name {
+  margin-bottom: $swatch-name-margin;
+}
+
+.sg-swatch-variable {
+  margin-bottom: $swatch-name-margin;
+  font-family: monospace;
+  font-size: $swatch-font-size;
+}
+
+.sg-swatch-hex {
+  font-family: monospace;
+  font-size: $swatch-font-size;
+  color: var(--gray-500);
+}
+
+// Accessibility section
+
+.sg-contrast-swatch {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-minimal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-height: 150px;
+}
+
+.sg-contrast-example {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: baseline;
+  margin-bottom: var(--spacing-xs);
+}
+
+.sg-contrast-large {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.sg-contrast-small {
+  font-size: 1rem;
+}
+
+.sg-contrast-info {
+  margin-top: auto;
+}
+
+.sg-contrast-ratio {
+  font-family: monospace;
+  font-size: 1.25rem;
+  margin-bottom: $swatch-name-margin;
+}
+
+.sg-contrast-compliance {
+  font-weight: bold;
+  margin-bottom: $swatch-name-margin;
+}
+
+.sg-contrast-colors {
+  font-size: $swatch-font-size;
+  opacity: 0.8;
+}
+
+// WCAG Contrast filter buttons
+.sg-contrast-filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.sg-filter-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--gray-400);
+  border-radius: var(--radius-minimal);
+  background: var(--white);
+  color: var(--body-text-base);
+  font-family: var(--font-family-base);
+  font-size: var(--p-small-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--gray-700);
+    background: var(--gray-100);
+  }
+
+  &.active {
+    background: var(--color-primary);
+    color: var(--white);
+    border-color: var(--color-primary);
+  }
+}
+
+// Hide filtered swatches
+.sg-contrast-swatch.hidden {
+  display: none;
+}
+
+// Filter groups
+.sg-filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+
+  strong {
+    margin-right: var(--spacing-xs);
+  }
+}
+
+#color-filters {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+// Typeface table
+.sg-typeface-group {
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-500);
+  margin-bottom: var(--spacing-xs);
+}
+
+.sg-typeface-rows {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-minimal);
+  overflow: hidden;
+}
+
+.sg-typeface-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--gray-200);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.sg-typeface-var {
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: var(--gray-500);
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+.sg-typeface-sample {
+  font-size: 1.375rem;
+  font-weight: normal;
+  color: var(--body-text-base);
+  line-height: 1.3;
+}

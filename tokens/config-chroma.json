@@ -1,0 +1,5 @@
+{
+  "pipeline": "simplified",
+  "excludeCollections": ["typography", "mockup-only"],
+  "googleFonts": ["Poppins:wght@400;700"]
+}

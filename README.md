@@ -1,259 +1,184 @@
-# Figma Tokens to HTML Styleguide
+# Figma Tokens → HTML Styleguide
 
-A complete workflow for converting Figma design tokens (variables) into CSS custom properties and generating an interactive HTML styleguide. Built for seamless integration with class-first WordPress page builders like Bricks Builder and Divi.
+A multi-client workflow for converting Figma variables into CSS custom properties and generating interactive HTML styleguides. Built for WordPress page builders like Bricks Builder and Divi.
 
 ## What This Does
 
-This project bridges the gap between Figma design and WordPress development by:
+1. **Imports Figma variables** (via Token Press) and transforms them into organized CSS custom properties
+2. **Generates a living styleguide** — color swatches, WCAG contrast table, typography scale, and component demos
+3. **Serves multiple clients** from one repo, each with their own tokens, CSS, and styleguide
 
-1. **Converting Figma Variables to CSS**: Transforms Figma design tokens (exported as JSON) into well-organized CSS custom properties
-2. **Generating a Living Styleguide**: Creates an interactive HTML demonstration of your typography, colors, spacing, and components
-3. **Maintaining Design-Dev Consistency**: Ensures your WordPress sites always reflect your latest Figma designs
+---
 
-## Features
+## Two Pipelines
 
-- ✅ **Variable-First Design**: Supports both primitives and semantic tokens
-- ✅ **Responsive Typography**: Mobile, tablet, and desktop font sizes with automatic fallback stacks
-- ✅ **Color System**: Automatic swatch generation with human-readable names
-- ✅ **Block Components**: Semantic tokens for headers, footers, buttons, cards, and navigation
-- ✅ **Live Development**: Hot-reload with Parcel during development
-- ✅ **Auto-Watch**: Automatically rebuilds when Figma exports change
+### Simplified (new clients — Token Press)
+
+For new clients using **Token Press** in Figma. Exports one JSON per collection; variables use leaf-name-only convention.
+
+- Variable `Components - Buttons > color-variations > primary > btn-primary-bg-color` → `--btn-primary-bg-color`
+- References resolve to `var(--leaf-name)`: `{color.brand.purple}` → `var(--purple)`
+- Dimensions auto-convert px → rem. Colors auto-convert rgb()/rgba() → hex.
+
+This introduces a new W3C DTCG-format pipeline alongside the legacy one:
+
+- `scripts/import-tokens.js` — unzips Token Press exports, strips $extensions, writes \_meta.json
+- `scripts/build-tokens.js` — branches on config-{client}.json; leaf-name CSS vars, px→rem, hex colors, font fallbacks
+- `scripts/generate-html.js` — per-client HTML generation with Google Fonts / Typekit support
+- `scripts/build-all.js` — Parcel builds all clients to dist/{client}/
+- `css/codesnippet-simplified.css`, `css/styleguide-simplified.scss` — styleguide styles for simplified clients
+- `js/styleguide.js` — swatch + typography + WCAG contrast logic, branched on window.PIPELINE
+- Adds chroma as first simplified client (config + tokens + index HTML)
+- Removes fonts.css.template (replaced by generated CSS)
+
+### Legacy (fcp, sqmhc — Design Tokens plugin)
+
+For existing clients using the original Design Tokens plugin export. Expects collections named `primitives`, `typography`, `blocks`, `tokens`. This pipeline is stable — do not modify it.
+
+---
+
+## Quick Start — Adding a New Client
+
+### 1. Set up the client config
+
+Create `tokens/config-{slug}.json`:
+
+```json
+{
+  "pipeline": "simplified",
+  "excludeCollections": ["typography", "mockup-only"],
+  "googleFonts": ["Poppins:wght@400;700"],
+  "collectionOrder": ["primitives", "tokens-colour"]
+}
+```
+
+| Option               | Description                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------ |
+| `excludeCollections` | Collection filenames to skip. Always exclude `"typography"` (composite text styles). |
+| `googleFonts`        | Generates `@import` in CSS and `<link>` tags in HTML.                                |
+| `typekitId`          | Adobe Fonts kit ID — generates `@import url('https://use.typekit.net/{id}.css')`.    |
+| `collectionOrder`    | Optional sort override. Default: primitives → tokens-_ → components-_.               |
+
+### 2. Export from Figma and import
+
+In Figma, export all collections from **Token Press** as a zip. Save to your Desktop, then:
+
+```bash
+npm run update -- {slug}
+```
+
+This imports `~/Desktop/tokens.zip` for the given client and rebuilds the CSS.
+
+### 3. Build and preview
+
+```bash
+npm run html       # generate src/index-{slug}.html
+npm run build      # Parcel build → dist/{slug}/
+npm run preview    # serve at localhost:8080
+```
+
+---
+
+## All npm Scripts
+
+```bash
+npm run update -- {slug}        # import ~/Desktop/tokens.zip + rebuild CSS
+npm run import -- <zip> <slug>  # import any zip to tokens/import-{slug}/
+npm run tokens                  # rebuild CSS for all clients
+npm run html                    # regenerate all HTML styleguide pages
+npm run build                   # full Parcel build → dist/
+npm run preview                 # serve dist/ at localhost:8080
+npm run dev                     # tokens + HTML + Parcel dev server (all clients)
+```
+
+---
 
 ## Project Structure
 
 ```
 ├── tokens/
-│   └── figma-export.json          # Export from Figma Design Tokens plugin
+│   ├── config-{client}.json       # Simplified pipeline config (one per client)
+│   ├── import-{client}/           # Token Press import folder (auto-generated)
+│   │   ├── _meta.json             # Collection name mapping
+│   │   ├── primitives.json
+│   │   └── tokens-colour.json     # (etc.)
+│   ├── figma-{client}.json        # Legacy: raw Figma export
+│   └── tokens-{client}.json       # Legacy: processed tokens
 ├── build/
 │   └── css/
-│       └── variables.css          # Generated CSS custom properties
+│       ├── variables-{client}.css  # Generated CSS custom properties
+│       └── utilities-{client}.css  # Generated color utility classes
 ├── css/
-│   ├── codesnippet.css           # Production-ready component styles
-│   └── styleguide.scss           # Styles used only to make the styleguide. Don't move to the production website.
+│   ├── codesnippet.css             # Legacy: production component styles
+│   ├── codesnippet-simplified.css  # Simplified: production component styles
+│   ├── styleguide.scss             # Legacy: styleguide-only styles
+│   └── styleguide-simplified.scss  # Simplified: styleguide-only styles
 ├── js/
-│   ├── build.js                  # Style Dictionary build script
-│   └── styleguide.js             # Interactive styleguide generators
-├── index.html                    # Interactive styleguide demo
-└── package.json
+│   └── styleguide.js              # Interactive styleguide (swatches, typography, WCAG)
+├── scripts/
+│   ├── build-tokens.js            # Style Dictionary build (both pipelines)
+│   ├── import-tokens.js           # Unzip Token Press export
+│   ├── generate-html.js           # Generate per-client HTML
+│   └── build-all.js               # Parcel build for all clients
+├── src/
+│   └── index-{client}.html        # Per-client styleguide source (auto-generated)
+└── dist/
+    └── {client}/
+        └── index.html             # Built styleguide
 ```
 
-## Installation
+---
 
-### Prerequisites
+## Font Fallback Stacks (Simplified Pipeline)
 
-- Node.js (v16 or higher recommended)
-- npm or yarn
+To add fallback font stacks, create two types of Figma primitives:
 
-### Setup
+- `font-family-sans`, `font-family-serif` — your actual web fonts
+- `fallback-sans`, `fallback-serif` — fallback stack strings (e.g. `Arial, Helvetica, sans-serif`)
 
-1. Clone this repository:
+The build automatically appends `, var(--fallback-sans)` to `--font-family-sans` in the CSS output. Semantic variables that reference `font-family-sans` inherit the fallback through CSS variable resolution — no duplication.
 
-```bash
-git clone git@github.com:oxygensmith/figma-html-styleguide.git
-cd figma-html-styleguide
-```
+---
 
-2. Install dependencies:
+## Styleguide Features
 
-```bash
-npm install
-```
+- **Color Palette** — Brand Colors, Tints, Color Tokens, Grayscale, Utilities (auto-detected by naming convention)
+- **Typography Scale** — h1–h6, display, poster (if variables exist), paragraphs; with mobile/tablet/desktop sizes, weights, line heights
+- **WCAG Contrast Table** — all brand color combinations meeting AA minimum, filterable by compliance level and background color
+- **Button, Card & Section demos** — styled via the generated CSS variables
 
-## Workflow
+---
 
-### 1. Export from Figma
+## WordPress Integration
 
-1. In Figma, use the **Design Tokens** plugin to export your variables
-2. Export as JSON format
-3. Copy the entire JSON content
-
-### 2. Update Tokens
-
-Replace the contents of `tokens/figma-export.json` with your exported JSON:
-
-```bash
-# Open the file and paste your Figma export
-# tokens/figma-export.json
-```
-
-### 3. Build & Preview
-
-Run the development server:
-
-```bash
-npm run dev
-```
-
-This will:
-
-- Build your CSS custom properties from the Figma tokens
-- Watch for changes to `figma-export.json`
-- Start a local development server with hot-reload
-- Open your browser to view the interactive styleguide
-
-When run, the styleguide will be available at `http://localhost:1234` (or another port if 1234 is in use).
-
-You can then:
-
-- move the demo to an online place, such as Netlify, for team viewing (set up a project and drop the 'dist' folder into it.).
-- print the styleguide as a PDF.
-- screenshot it with a whole-screenshotting plugin like Fireshot and share this back into the Figma file if it's handy.
-
-### 4. Use in Production
-
-After building, you'll have two CSS files to use in your WordPress projects:
-
-1. **`build/css/variables.css`** - Your CSS custom properties (required)
-2. **`css/codesnippet.css`** - Component styles and utilities (required)
-
-**Do NOT include** `styleguide.css` in production - it's only for the demo.
-
-## Available Scripts
-
-```bash
-# Build tokens only
-npm run build:tokens
-
-# Development mode (build + watch + serve)
-npm run dev
-
-# Production build
-npm run build
-
-# Watch mode
-npm run watch
-
-# Start server (alias for dev)
-npm start
-```
-
-## Design Token Organization
-
-### Primitives
-
-Core design values that don't change:
-
-- Colors (gray scale, brand colors)
-- Spacing scale (1-13 + half)
-- Border radius (sm, md, lg, xl, 2xl, 3xl)
-- Content widths
-
-### Typography
-
-Font system:
-
-- Font families (with automatic fallback stacks)
-- Font sizes (responsive: mobile, tablet, desktop)
-- Font weights
-- Line heights
-
-### Blocks
-
-Component-specific tokens:
-
-- Headers
-- Footers
-- Buttons
-- Cards
-- Navigation
-- Highlight blocks
-
-### Utility Tokens
-
-Reusable semantic values:
-
-- Text colors (primary, invert, light, headings)
-- Border styles
-- Spacing shortcuts (xs, sm, md, lg, xl, 2xl)
-- Radius shortcuts (minimal, rounded, full)
-
-## Customization
-
-### Adding New Fonts
-
-Fonts are automatically given fallback stacks. To use web fonts, add them to `index.html`:
-
-```html
-<link
-  href="https://fonts.googleapis.com/css2?family=Your+Font&display=swap"
-  rel="stylesheet"
-/>
-```
-
-### Modifying the Styleguide
-
-- Edit `css/styleguide.scss` for visual changes
-- Edit `js/styleguide.js` for functionality changes
-- The styleguide automatically reads from your generated `variables.css`
-
-## Integration with WordPress
-
-### Using with your page builder
-
-Put your `variables.css` and `codesnippet.css` files in your WordPress theme.
-
-#### Using with your child theme
-
-To put them into your child theme, add this to `functions.php` or whereever you enqueue your CSS.
+After building, enqueue two CSS files in your theme or via Code Snippets:
 
 ```php
-wp_enqueue_style('design-tokens', get_stylesheet_directory_uri() . '/css/variables.css');
-wp_enqueue_style('components', get_stylesheet_directory_uri() . '/css/codesnippet.css');
+wp_enqueue_style('design-tokens', get_stylesheet_directory_uri() . '/css/variables-{client}.css');
+wp_enqueue_style('components',    get_stylesheet_directory_uri() . '/css/codesnippet-simplified.css');
 ```
 
-#### Using with Code Snippets (or similar plugin)
+Reference variables in Bricks, Divi, or any page builder:
 
-Add the files with Code Snippets and make sure they run early.
+```css
+var(--color-primary)       /* semantic brand color */
+var(--spacing-md)          /* spacing */
+var(--heading-h1-lg)       /* desktop h1 size */
+var(--font-family-base)    /* body font with fallback stack */
+```
 
-#### Using with Bricks or similar page builder
-
-If you have a variable-first page builder like Bricks, reference CSS custom properties like so:
-
-- Use `var(--brand--green--pine)` for colors
-- Use `var(--spacing--md)` for spacing
-- Use `var(--font-size--h1--desktop)` for typography
-
-### Using with Divi or blocks that don't take variabels
-
-Similar approach - enqueue the CSS files and reference the custom properties in Divi's custom CSS fields.
+---
 
 ## Browser Support
 
-CSS Custom Properties are supported in all modern browsers:
+CSS Custom Properties are supported in all modern browsers (Chrome/Edge 49+, Firefox 31+, Safari 9.1+).
 
-- Chrome/Edge 49+
-- Firefox 31+
-- Safari 9.1+
-
-## Contributing
-
-This is a living workflow! Improvements welcome.
-
-## License
-
-MIT License attached to this.
-https://github.com/oxygensmith/figma-html-styleguide/blob/main/.LICENSE
-
-## TODOs / Roadmap
-
-- new: Debug 'multiple dist' process - no longer creating related files to [project]/index.html in dist/[project] folder
-- Build process needs combined build + preview script
-- Build process should build index.html with buttons
-- Buttons variables need to be interpolated, populated, demonstrated (including complex buttons - transforms, shadows, radius)
-  — Do the same with spacing
-- Explain diff between figma-?.json and tokens-?.json
-- In addition to codesnippet.css, have basic Divi markup section (for cards, banners, and so on) (and variables for it)
-- Then add Divi Supreme markup that gets styled
-  — Then add a way to do custom sections in here - when regenerated, these sections are left alone.
+---
 
 ## Acknowledgments
 
 Built with:
 
-- [Style Dictionary](https://github.com/style-dictionary/style-dictionary) - Token transformation
-- [Parcel](https://parceljs.org/) - Development bundler
-- [Design Tokens Plugin for Figma](https://www.figma.com/community/plugin/888356646278934516) - Token export
-
----
-
-**Questions?** Open an issue or reach out!
+- [Style Dictionary](https://github.com/style-dictionary/style-dictionary) — token transformation
+- [Parcel](https://parceljs.org/) — development bundler
+- [Token Press](https://www.figma.com/community/plugin/1255249848485403) — Figma token export

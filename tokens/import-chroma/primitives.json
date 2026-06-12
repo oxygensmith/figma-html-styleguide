@@ -1,0 +1,322 @@
+{
+  "color": {
+    "grey": {
+      "gray-900": {
+        "$type": "color",
+        "$value": "rgb(35, 35, 35)"
+      },
+      "gray-800": {
+        "$type": "color",
+        "$value": "rgb(52, 52, 52)"
+      },
+      "gray-700": {
+        "$type": "color",
+        "$value": "rgb(72, 72, 72)"
+      },
+      "gray-600": {
+        "$type": "color",
+        "$value": "rgb(124, 124, 124)"
+      },
+      "gray-100": {
+        "$type": "color",
+        "$value": "rgb(241, 241, 241)"
+      },
+      "gray-200": {
+        "$type": "color",
+        "$value": "rgb(211, 211, 211)"
+      },
+      "gray-300": {
+        "$type": "color",
+        "$value": "rgb(179, 179, 179)"
+      },
+      "gray-400": {
+        "$type": "color",
+        "$value": "rgb(175, 175, 175)"
+      },
+      "gray-500": {
+        "$type": "color",
+        "$value": "rgb(151, 151, 151)"
+      },
+      "white": {
+        "$type": "color",
+        "$value": "rgb(255, 255, 255)"
+      },
+      "black": {
+        "$type": "color",
+        "$value": "rgb(0, 0, 0)"
+      }
+    },
+    "brand": {
+      "purple": {
+        "$type": "color",
+        "$value": "rgb(98, 43, 140)"
+      },
+      "blue": {
+        "$type": "color",
+        "$value": "rgb(10, 109, 180)"
+      },
+      "berry": {
+        "$type": "color",
+        "$value": "rgb(226, 12, 109)"
+      },
+      "orange": {
+        "$type": "color",
+        "$value": "rgb(252, 110, 49)"
+      },
+      "lime": {
+        "$type": "color",
+        "$value": "rgb(155, 212, 65)"
+      },
+      "yellow": {
+        "$type": "color",
+        "$value": "rgb(249, 191, 45)"
+      },
+      "bubblegum": {
+        "$type": "color",
+        "$value": "rgb(255, 164, 179)"
+      },
+      "blueviolet": {
+        "$type": "color",
+        "$value": "rgb(44, 48, 140)"
+      },
+      "lemon": {
+        "$type": "color",
+        "$value": "rgb(237, 223, 26)"
+      },
+      "grass": {
+        "$type": "color",
+        "$value": "rgb(92, 194, 102)"
+      },
+      "amethyst": {
+        "$type": "color",
+        "$value": "rgb(53, 17, 80)"
+      },
+      "cobalt": {
+        "$type": "color",
+        "$value": "rgb(30, 34, 128)"
+      }
+    },
+    "tints": {
+      "purple-100": {
+        "$type": "color",
+        "$value": "rgb(179, 130, 217)"
+      },
+      "purple-400": {
+        "$type": "color",
+        "$value": "rgb(120, 53, 172)"
+      },
+      "purple-300": {
+        "$type": "color",
+        "$value": "rgb(141, 68, 197)"
+      },
+      "purple-200": {
+        "$type": "color",
+        "$value": "rgb(160, 99, 207)"
+      },
+      "purple-500": {
+        "$type": "color",
+        "$value": "{color.brand.purple}"
+      },
+      "purple-600": {
+        "$type": "color",
+        "$value": "rgb(76, 34, 109)"
+      },
+      "purple-700": {
+        "$type": "color",
+        "$value": "rgb(66, 29, 94)"
+      },
+      "purple-800": {
+        "$type": "color",
+        "$value": "rgb(55, 24, 78)"
+      },
+      "purple-900": {
+        "$type": "color",
+        "$value": "rgb(44, 19, 62)"
+      }
+    },
+    "transparent": {
+      "$type": "color",
+      "$value": "rgba(255, 255, 255, 0)"
+    },
+    "translucent-white": {
+      "$type": "color",
+      "$value": "rgba(255, 255, 255, 0.6)"
+    },
+    "translucent-dark": {
+      "$type": "color",
+      "$value": "rgba(0, 0, 0, 0.6)"
+    }
+  },
+  "spacing": {
+    "spacing-xs": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "spacing-sm": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "spacing-md": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "spacing-lg": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "spacing-xl": {
+      "$type": "dimension",
+      "$value": "72px"
+    },
+    "spacing-2xl": {
+      "$type": "dimension",
+      "$value": "144px"
+    },
+    "spacing-3xl": {
+      "$type": "dimension",
+      "$value": "256px"
+    }
+  },
+  "radius": {
+    "radius-sm": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "radius-md": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "radius-lg": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "radius-xl": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "radius-2xl": {
+      "$type": "dimension",
+      "$value": "64px"
+    },
+    "radius-3xl": {
+      "$type": "dimension",
+      "$value": "128px"
+    },
+    "radius-xs": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "radius-round": {
+      "$type": "dimension",
+      "$value": "600px"
+    }
+  },
+  "content": {
+    "max-width": {
+      "base-desktop": {
+        "$type": "dimension",
+        "$value": "1212px"
+      },
+      "narrow-desktop": {
+        "$type": "dimension",
+        "$value": "770px"
+      },
+      "base-mobile": {
+        "$type": "string",
+        "$value": "330"
+      },
+      "narrow-mobile": {
+        "$type": "string",
+        "$value": "300"
+      },
+      "none": {
+        "$type": "string",
+        "$value": "100%"
+      }
+    }
+  },
+  "line-height": {
+    "unitless": {
+      "leading-tight": {
+        "$type": "number",
+        "$value": 1.2000000476837158
+      },
+      "leading-snug": {
+        "$type": "number",
+        "$value": 1.25
+      },
+      "leading-normal": {
+        "$type": "number",
+        "$value": 1.399999976158142
+      },
+      "leading-relaxed": {
+        "$type": "number",
+        "$value": 1.5
+      },
+      "leading-display": {
+        "$type": "number",
+        "$value": 1.0499999523162842
+      }
+    },
+    "percent": {
+      "leading-tight-percent": {
+        "$type": "number",
+        "$value": 120
+      },
+      "leading-snug-percent": {
+        "$type": "number",
+        "$value": 125
+      },
+      "leading-normal-percent": {
+        "$type": "number",
+        "$value": 140
+      },
+      "leading-relaxed-percent": {
+        "$type": "number",
+        "$value": 150
+      },
+      "leading-display-percent": {
+        "$type": "number",
+        "$value": 105
+      }
+    }
+  },
+  "font-weight": {
+    "weight-regular": {
+      "$type": "number",
+      "$value": 400
+    },
+    "weight-medium": {
+      "$type": "number",
+      "$value": 500
+    },
+    "weight-bold": {
+      "$type": "number",
+      "$value": 700
+    },
+    "weight-semibold": {
+      "$type": "number",
+      "$value": 600
+    },
+    "weight-light": {
+      "$type": "number",
+      "$value": 300
+    }
+  },
+  "fallback-serif": {
+    "$type": "string",
+    "$value": "Georgia, 'Times New Roman', serif;"
+  },
+  "fallback-sans": {
+    "$type": "string",
+    "$value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
+  },
+  "font-family-sans": {
+    "$type": "string",
+    "$value": "Poppins"
+  },
+  "font-family-serif": {
+    "$type": "string",
+    "$value": "Poppins"
+  }
+}

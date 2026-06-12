@@ -1,0 +1,102 @@
+{
+  "desktop": {
+    "dropdown": {
+      "text-transform-2": {
+        "$type": "string",
+        "$value": "none"
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color-tokens.color-secondary}"
+      },
+      "toggler-color": {
+        "$type": "color",
+        "$value": "{color-tokens.color-secondary}"
+      },
+      "text-transform": {
+        "$type": "string",
+        "$value": "none"
+      },
+      "dropdown-bg": {
+        "$type": "color",
+        "$value": "{color-tokens.color-secondary}"
+      },
+      "color-hover": {
+        "$type": "color",
+        "$value": "{color-tokens.color-secondary}"
+      },
+      "dropdown-link-color-hover": {
+        "$type": "color",
+        "$value": "{color-tokens.color-secondary}"
+      },
+      "dropdown-link-color": {
+        "$type": "color",
+        "$value": "{color.grey.white}"
+      },
+      "link-color-hover": {
+        "$type": "color",
+        "$value": "{color-tokens.color-secondary}"
+      },
+      "link-color": {
+        "$type": "color",
+        "$value": "{color.grey.white}"
+      },
+      "bg-color": {
+        "$type": "color",
+        "$value": "{color-tokens.color-primary}"
+      },
+      "color": {
+        "$type": "color",
+        "$value": "{color.grey.white}"
+      }
+    },
+    "toplink": {
+      "desktop-toplink-color-hover": {
+        "$type": "color",
+        "$value": "{color-tokens.color-secondary}"
+      },
+      "desktop-toplink-text-transform": {
+        "$type": "string",
+        "$value": "none"
+      },
+      "desktop-toplink-color": {
+        "$type": "color",
+        "$value": "{color.grey.white}"
+      },
+      "desktop-toplink-color-invert": {
+        "$type": "color",
+        "$value": "{color-tokens.color-primary}"
+      }
+    }
+  },
+  "mobile": {
+    "dropdown": {
+      "link-color": {
+        "$type": "color",
+        "$value": "{color-tokens.color-primary}"
+      }
+    },
+    "toplink": {
+      "text-transform": {
+        "$type": "string",
+        "$value": "none"
+      },
+      "mobile-toplink-color": {
+        "$type": "color",
+        "$value": "{color.grey.white}"
+      },
+      "mobile-toplink-text-transform": {
+        "$type": "string",
+        "$value": "none"
+      },
+      "mobile-toplink-color-hover": {
+        "$type": "color",
+        "$value": "{color-tokens.color-secondary}"
+      },
+      "mobile-toggler-color": {
+        "$type": "color",
+        "$value": "{color.grey.white}"
+      }
+    }
+  }
+}

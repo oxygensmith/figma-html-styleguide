@@ -1,0 +1,200 @@
+{
+  "footer": {
+    "footer-bg-color": {
+      "$type": "color",
+      "$value": "{color-tokens.color-primary}"
+    },
+    "mobile": {
+      "footer-mobile-y-padding": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "footer-mobile-x-padding": {
+        "$type": "dimension",
+        "$value": "24px"
+      }
+    },
+    "desktop": {
+      "footer-desktop-y-padding": {
+        "$type": "dimension",
+        "$value": "36px"
+      },
+      "footer-desktop-x-padding": {
+        "$type": "dimension",
+        "$value": "36px"
+      }
+    },
+    "footer-text-color": {
+      "$type": "color",
+      "$value": "{color-tokens.color-invert}"
+    },
+    "footer-heading-color": {
+      "$type": "color",
+      "$value": "{color.grey.white}"
+    },
+    "footer-link-color": {
+      "$type": "color",
+      "$value": "{color.grey.white}"
+    },
+    "footer-subheading-color": {
+      "$type": "color",
+      "$value": "{color.translucent-white}"
+    },
+    "footer-bg-color-alt": {
+      "$type": "color",
+      "$value": "{color.brand.amethyst}"
+    }
+  },
+  "header": {
+    "mobile": {
+      "header-mobile-y-padding": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "header-mobile-x-padding": {
+        "$type": "dimension",
+        "$value": "24px"
+      }
+    },
+    "bg-header": {
+      "$type": "color",
+      "$value": "{color-tokens.color-primary}"
+    },
+    "desktop": {
+      "header-desktop-y-padding": {
+        "$type": "dimension",
+        "$value": "36px"
+      },
+      "header-desktop-x-padding": {
+        "$type": "dimension",
+        "$value": "142px"
+      },
+      "logo-height": {
+        "$type": "dimension",
+        "$value": "136px"
+      },
+      "logo-width": {
+        "$type": "dimension",
+        "$value": "288px"
+      },
+      "logo-bg": {
+        "$type": "color",
+        "$value": "{body.body-bg-color}"
+      }
+    },
+    "header-mobile-position": {
+      "$type": "string",
+      "$value": "fixed"
+    },
+    "header-desktop-position": {
+      "$type": "string",
+      "$value": "fixed"
+    }
+  },
+  "body": {
+    "body-bg-color": {
+      "$type": "color",
+      "$value": "{color.grey.white}"
+    },
+    "donate-bg-color": {
+      "$type": "color",
+      "$value": "{color.brand.cobalt}"
+    }
+  },
+  "section": {
+    "desktop": {
+      "section-desktop-y-padding": {
+        "$type": "dimension",
+        "$value": "64px"
+      },
+      "section-desktop-x-padding-hero": {
+        "$type": "dimension",
+        "$value": "128px"
+      },
+      "section-desktop-x-padding-large": {
+        "$type": "dimension",
+        "$value": "256px"
+      },
+      "section-desktop-x-padding-base": {
+        "$type": "dimension",
+        "$value": "150px"
+      },
+      "section-desktop-x-padding-narrow": {
+        "$type": "dimension",
+        "$value": "75px"
+      }
+    },
+    "mobile": {
+      "section-mobile-x-padding-base": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "section-mobile-y-padding": {
+        "$type": "dimension",
+        "$value": "56px"
+      },
+      "section-mobile-x-padding-wide": {
+        "$type": "dimension",
+        "$value": "64px"
+      }
+    }
+  },
+  "logo": {
+    "header": {
+      "mobile": {
+        "header-logo-height-mobile": {
+          "$type": "dimension",
+          "$value": "136px"
+        },
+        "header-logo-width-mobile": {
+          "$type": "dimension",
+          "$value": "288px"
+        }
+      },
+      "desktop": {
+        "header-logo-height-mobile": {
+          "$type": "dimension",
+          "$value": "136px"
+        },
+        "header-logo-width-desktop": {
+          "$type": "dimension",
+          "$value": "288px"
+        }
+      }
+    },
+    "footer": {
+      "desktop": {
+        "footer-logo-height-desktop": {
+          "$type": "dimension",
+          "$value": "136px"
+        },
+        "footer-logo-width-desktop": {
+          "$type": "dimension",
+          "$value": "288px"
+        }
+      },
+      "mobile": {
+        "footer-logo-height-mobile": {
+          "$type": "dimension",
+          "$value": "136px"
+        },
+        "footer-logo-width-mobile": {
+          "$type": "dimension",
+          "$value": "288px"
+        }
+      }
+    }
+  },
+  "highlight-block": {
+    "radius": {
+      "block-mobile-radius": {
+        "$type": "dimension",
+        "$value": "{borders.mobile.card-border-radius-xs}"
+      },
+      "block-desktop-radius": {
+        "$type": "dimension",
+        "$value": "{borders.desktop.radius.card-border-radius-lg}"
+      }
+    }
+  }
+}

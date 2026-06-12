@@ -24,7 +24,7 @@ clients.forEach((client, index) => {
 
   try {
     execSync(
-      `parcel build src/index-${client}.html --dist-dir dist/${client} --public-url ./`,
+      `parcel build src/index-${client}.html --dist-dir dist/${client} --public-url ./ --no-optimize`,
       {
         stdio: 'inherit',
       }
@@ -63,6 +63,28 @@ clients.forEach((client, index) => {
     }
 
     console.log(`✅ ${client} built to dist/${client}/\n`);
+
+    // Copy source CSS files for easy download
+    console.log(`   📋 Copying source CSS files...`);
+    try {
+      const sourceVars = `build/css/variables-${client}.css`;
+      const sourceUtils = `build/css/utilities-${client}.css`;
+      const destVars = `dist/${client}/variables-${client}.css`;
+      const destUtils = `dist/${client}/utilities-${client}.css`;
+
+      if (existsSync(sourceVars)) {
+        execSync(`cp "${sourceVars}" "${destVars}"`);
+        console.log(`   ✓ Copied variables-${client}.css`);
+      }
+
+      if (existsSync(sourceUtils)) {
+        execSync(`cp "${sourceUtils}" "${destUtils}"`);
+        console.log(`   ✓ Copied utilities-${client}.css`);
+      }
+      console.log('');
+    } catch (error) {
+      console.log(`   ⚠️  Could not copy CSS files: ${error.message}\n`);
+    }
   } catch (error) {
     console.error(`❌ Failed to build ${client}`);
     console.error(`Error details: ${error.message}`);

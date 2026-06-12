@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="../css/styleguide.scss" data-source="styleguide.scss">
 
   <!-- Store client name for JavaScript -->
-  <script>window.CLIENT_NAME = 'sqmhc';</script>
+  <script>window.CLIENT_NAME = 'sqmhc'; window.PIPELINE = 'legacy';</script>
 </head>
 <body>
   
@@ -31,9 +31,15 @@
         <div class="nav-container">
           <div class="logo">SQMHC Design System</div>
           <div class="nav-links">
-            <a href="#" class="nav-link">Home</a>
-            <a href="#" class="nav-link">About</a>
-            <a href="#" class="nav-link nav-link-cta btn btn-primary-invert">Contact</a>
+            <a href="#swatches" class="nav-link">Swatches</a>
+            <a href="#typography" class="nav-link">Typography</a>
+            <a href="#accessibility" class="nav-link">Accessibility</a>
+            <a href="#" id="download-variables" class="nav-link nav-link-cta btn btn-primary-invert">
+              <i class="fa-solid fa-download"></i> Variables CSS
+            </a>
+            <a href="#" id="download-utilities" class="nav-link nav-link-cta btn btn-primary-invert">
+              <i class="fa-solid fa-download"></i> Utilities CSS
+            </a>
           </div>
         </div>
       </nav>
@@ -61,15 +67,13 @@
       <h2 class="mb-md">Color Palette</h2>
       <p class="mb-lg">Our semantic color system built on primitive tokens.</p>
       
-      <h3 class="mb-sm">Brand Colors</h3>
-      <div id="brand-swatches" class="grid-auto-fill gap-md mb-xl">
-        <!-- Swatches will be generated here by JavaScript -->
-      </div>
       
+      <h3 class="mb-sm">Brand Colors</h3>
+      <div id="brand-swatches" class="grid-auto-fill gap-md mb-xl"></div>
+
       <h3 class="mb-sm">Grayscale</h3>
-      <div id="gray-swatches" class="grid-auto-fill gap-sm mb-xl">
-        <!-- Swatches will be generated here by JavaScript -->
-      </div>
+      <div id="gray-swatches" class="grid-auto-fill gap-sm mb-xl"></div>
+    
     </div>
   </section>
 
@@ -77,17 +81,21 @@
   <section id="typography" class="container mt-2xl mb-2xl">
     <h2 class="mb-md">Typography Scale</h2>
     <p class="mb-lg">Our typography is responsive across mobile, tablet, and desktop breakpoints.</p>
-    
+
+    <div id="typeface-table" class="mb-xl"></div>
+
     <div class="card mb-lg">
       <h1>Heading 1</h1>
       <h2>Heading 2</h2>
       <h3>Heading 3</h3>
       <h4>Heading 4</h4>
-      
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
+
       <p class="mt-md">Regular paragraph text.</p>
-      
+
       <p class="large">Large paragraph text.</p>
-      
+
       <p class="small">Small paragraph text.</p>
     </div>
   </section>
@@ -137,6 +145,7 @@
         <button class="btn btn-secondary">Secondary Button</button>
         <button class="btn btn-secondary-invert">Secondary Inverted</button>
         <button class="btn btn-alert">Alert Button</button>
+        <button class="btn btn-moonjoule">Button</button>
       </div>
     </div>
   </section>
@@ -269,6 +278,30 @@
   </aside>
   
   <script src="../js/styleguide.js"></script>
+
+  <script>
+  // Set download links dynamically to prevent Parcel from bundling them
+  document.addEventListener('DOMContentLoaded', () => {
+    const clientName = window.CLIENT_NAME || 'sqmhc';
+    
+    const downloadVars = document.getElementById('download-variables');
+    const downloadUtils = document.getElementById('download-utilities');
+    
+    if (downloadVars) {
+      downloadVars.href = '/' + clientName + '/' + 'variables-' + clientName + '.css';
+      downloadVars.target = '_blank';  // Open in new tab
+      /* for later download button */
+      /* downloadVars.download = 'variables-' + clientName + '.css'; */
+    }
+    
+    if (downloadUtils) {
+      downloadUtils.href = '/' + clientName + '/' + 'utilities-' + clientName + '.css';
+      downloadUtils.target = '_blank';  // Open in new tab
+      /* downloadUtils.download = 'utilities-' + clientName + '.css'; */
+    }
+  });
+</script>
+  
 
 </body>
 </html>

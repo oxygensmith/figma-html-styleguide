@@ -1,0 +1,60 @@
+{
+  "border-width": {
+    "mobile": {
+      "border-width-large-xs": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "border-width-thin-xs": {
+        "$type": "dimension",
+        "$value": "1px"
+      },
+      "border-width-regular-xs": {
+        "$type": "dimension",
+        "$value": "4px"
+      }
+    },
+    "desktop": {
+      "border-width-thick-lg": {
+        "$type": "dimension",
+        "$value": "30px"
+      },
+      "border-width-regular-lg": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "border-width-thin-lg": {
+        "$type": "dimension",
+        "$value": "1px"
+      }
+    },
+    "tablet": {
+      "border-width-thin-md": {
+        "$type": "dimension",
+        "$value": "1px"
+      },
+      "border-width-regular-md": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "border-width-large-md": {
+        "$type": "dimension",
+        "$value": "27px"
+      }
+    }
+  },
+  "border-radius": {
+    "radius-full": {
+      "$type": "dimension",
+      "$value": "999px"
+    },
+    "radius-standard": {
+      "$type": "dimension",
+      "$value": "50px"
+    },
+    "radius-minimal": {
+      "$type": "dimension",
+      "$value": "0px"
+    }
+  }
+}

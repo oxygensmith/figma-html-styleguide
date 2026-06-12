@@ -1,99 +1,27 @@
-// generate-html.js
-// Generates HTML files for each client based on a template,
-// including conditional loading of custom fonts if available.
-
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
-
-// Discover clients from figma-*.json files AND simplified pipeline config-*.json files
-const tokenFiles = readdirSync('./tokens');
-const clients = [];
-
-tokenFiles
-  .filter((f) => f.startsWith('figma-') && f.endsWith('.json'))
-  .forEach((f) => clients.push(f.match(/figma-(.+)\.json/)[1]));
-
-tokenFiles
-  .filter((f) => f.startsWith('config-') && f.endsWith('.json'))
-  .forEach((f) => {
-    const client = f.match(/config-(.+)\.json/)[1];
-    try {
-      const config = JSON.parse(readFileSync(`./tokens/${f}`, 'utf8'));
-      if (config.pipeline === 'simplified' && !clients.includes(client)) {
-        clients.push(client);
-      }
-    } catch {}
-  });
-
-if (clients.length === 0) {
-  console.error('❌ No clients found in ./tokens/');
-  process.exit(1);
-}
-
-console.log(`\n🔍 Found ${clients.length} client(s): ${clients.join(', ')}`);
-
-// Check for custom fonts for each client
-console.log('\n🔤 Checking for custom fonts...\n');
-
-const fontWarnings = [];
-
-clients.forEach((client) => {
-  const fontsFile = `./css/fonts-${client}.css`;
-  const fontsDir = `./fonts/${client}`;
-
-  const hasFontsCSS = existsSync(fontsFile);
-  const hasFontsDir = existsSync(fontsDir);
-
-  if (hasFontsCSS) {
-    console.log(`✅ ${client}: Custom fonts CSS found (fonts-${client}.css)`);
-    if (!hasFontsDir) {
-      fontWarnings.push({
-        client,
-        message: `fonts-${client}.css exists but no ./fonts/${client}/ directory found`,
-      });
-    }
-  } else {
-    console.log(`ℹ️  ${client}: Using web fonts only (no fonts-${client}.css)`);
-  }
-});
-
-if (fontWarnings.length > 0) {
-  console.log('\n⚠️  Font Warnings:\n');
-  fontWarnings.forEach((w) => {
-    console.log(`   ${w.client}: ${w.message}`);
-  });
-}
-
-console.log('\n💡 Font Setup Instructions:');
-console.log('   • To use Google Fonts only: No action needed');
-console.log('   • To use custom fonts:');
-console.log('     1. Create css/fonts-{client}.css with @font-face rules');
-console.log('     2. Place font files in fonts/{client}/ directory');
-console.log('     3. Ensure font-family names match your Figma variables');
-console.log('     4. Run npm run build to regenerate\n');
-
-// HTML template with conditional font loading
-const template = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{CLIENT_UPPER}} Design System</title>
+  <title>CHROMA Design System</title>
   <meta name="robots" content="noindex,nofollow" />
   
-  {{CUSTOM_FONTS}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
   
   <!-- Client-specific variables (Parcel will process these) -->
-  <link rel="stylesheet" href="../build/css/variables-{{CLIENT}}.css" data-source="variables-{{CLIENT}}.css">
-  <link rel="stylesheet" href="../build/css/utilities-{{CLIENT}}.css" data-source="utilities-{{CLIENT}}.css">
+  <link rel="stylesheet" href="../build/css/variables-chroma.css" data-source="variables-chroma.css">
+  <link rel="stylesheet" href="../build/css/utilities-chroma.css" data-source="utilities-chroma.css">
   
   <!-- Shared utility styles -->
-  <link rel="stylesheet" href="../css/{{CODESNIPPET_CSS}}" data-source="{{CODESNIPPET_CSS}}">
+  <link rel="stylesheet" href="../css/codesnippet-simplified.css" data-source="codesnippet-simplified.css">
   
   <!-- Styles for this styleguide itself -->
-  <link rel="stylesheet" href="../css/{{STYLEGUIDE_CSS}}" data-source="{{STYLEGUIDE_CSS}}">
+  <link rel="stylesheet" href="../css/styleguide-simplified.scss" data-source="styleguide-simplified.scss">
 
   <!-- Store client name for JavaScript -->
-  <script>window.CLIENT_NAME = '{{CLIENT}}'; window.PIPELINE = '{{PIPELINE}}';</script>
+  <script>window.CLIENT_NAME = 'chroma'; window.PIPELINE = 'simplified';</script>
 </head>
 <body>
   
@@ -102,7 +30,7 @@ const template = `<!DOCTYPE html>
     <div class="container">
       <nav class="nav">
         <div class="nav-container">
-          <div class="logo">{{CLIENT_UPPER}} Design System</div>
+          <div class="logo">CHROMA Design System</div>
           <div class="nav-links">
             <a href="#swatches" class="nav-link">Swatches</a>
             <a href="#typography" class="nav-link">Typography</a>
@@ -122,7 +50,7 @@ const template = `<!DOCTYPE html>
   <!-- HERO SECTION -->
   <section class="section-hero">
     <div class="container">
-      <h1 class="mb-md">{{CLIENT_UPPER}} Styleguide</h1>
+      <h1 class="mb-md">CHROMA Styleguide</h1>
       <p class="large mb-lg">A demonstration of moving our variable-driven Figma prototypes to Divi-ready CSS.</p>
       <div class="flex gap-sm flex-wrap">
         <a href="#swatches" class="btn btn-primary">Swatches</a>
@@ -140,7 +68,27 @@ const template = `<!DOCTYPE html>
       <h2 class="mb-md">Color Palette</h2>
       <p class="mb-lg">Our semantic color system built on primitive tokens.</p>
       
-      {{SWATCH_SECTIONS}}
+      
+      <h3 class="mb-sm">Brand Colors</h3>
+      <p class="mb-md">The colours of Chroma.</p>
+      <div id="brand-swatches" class="grid-auto-fill gap-md mb-xl"></div>
+
+      <h3 class="mb-sm">Tints</h3>
+      <p class="mb-md">Shades and tints derived from the brand palette.</p>
+      <div id="tints-swatches" class="grid-auto-fill gap-md mb-xl"></div>
+
+      <h3 class="mb-sm">Color Tokens</h3>
+    <p class="mb-md">Semantic tokens that assign brand colours to functional roles like primary, secondary, and highlight.</p>
+      <div id="color-token-swatches" class="grid-auto-fill gap-md mb-xl"></div>
+
+      <h3 class="mb-sm">Grayscale</h3>
+      <p class="mb-md">Neutral tones for text, backgrounds, and borders.</p>
+      <div id="gray-swatches" class="grid-auto-fill gap-sm mb-xl"></div>
+
+      <h3 class="mb-sm">Utilities</h3>
+      <p class="mb-md">Special-purpose values for transparency and overlay effects.</p>
+      <div id="utilities-swatches" class="grid-auto-fill gap-sm mb-xl"></div>
+    
     </div>
   </section>
 
@@ -339,7 +287,7 @@ const template = `<!DOCTYPE html>
       <div class="sg-aside-note">Made with love and care by the team at <a href="https://arcanacreative.ca">Arcana Creative.</a></div>
       <div class="sg-aside-content">
         <span class="sg-styleguide-text">Website styleguide for</span>
-        <span class="sg-styleguide-client">{{CLIENT_UPPER}}</span>
+        <span class="sg-styleguide-client">CHROMA</span>
       </div>
     </div>
   </aside>
@@ -349,7 +297,7 @@ const template = `<!DOCTYPE html>
   <script>
   // Set download links dynamically to prevent Parcel from bundling them
   document.addEventListener('DOMContentLoaded', () => {
-    const clientName = window.CLIENT_NAME || '{{CLIENT}}';
+    const clientName = window.CLIENT_NAME || 'chroma';
     
     const downloadVars = document.getElementById('download-variables');
     const downloadUtils = document.getElementById('download-utilities');
@@ -371,89 +319,4 @@ const template = `<!DOCTYPE html>
   
 
 </body>
-</html>`;
-
-// Generate HTML for each client
-console.log('\n📝 Generating HTML files...\n');
-
-clients.forEach((client) => {
-  const configPath = `./tokens/config-${client}.json`;
-  const clientConfig = existsSync(configPath)
-    ? JSON.parse(readFileSync(configPath, 'utf8'))
-    : null;
-
-  let customFontsLink;
-
-  if (clientConfig?.googleFonts?.length) {
-    const families = clientConfig.googleFonts
-      .map((f) => `family=${f.replace(/ /g, '+')}`)
-      .join('&');
-    customFontsLink =
-      `<link rel="preconnect" href="https://fonts.googleapis.com">\n` +
-      `  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n` +
-      `  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${families}&display=swap">`;
-  } else if (clientConfig?.typekitId) {
-    customFontsLink = `<link rel="stylesheet" href="https://use.typekit.net/${clientConfig.typekitId}.css">`;
-  } else if (existsSync(`./css/fonts-${client}.css`)) {
-    customFontsLink =
-      `<!-- Custom fonts for ${client.toUpperCase()} -->\n` +
-      `  <link rel="stylesheet" href="../css/fonts-${client}.css" data-source="fonts-${client}.css">`;
-  } else {
-    customFontsLink = `<!-- No custom fonts for ${client.toUpperCase()} (using web fonts only) -->`;
-  }
-
-  const isSimplified = clientConfig?.pipeline === 'simplified';
-  const styleguideCSS = isSimplified
-    ? 'styleguide-simplified.scss'
-    : 'styleguide.scss';
-  const codesnippetCSS = isSimplified
-    ? 'codesnippet-simplified.css'
-    : 'codesnippet.css';
-
-  const html = template
-    .replace(/\{\{CLIENT\}\}/g, client)
-    .replace(/\{\{CLIENT_UPPER\}\}/g, client.toUpperCase())
-    .replace('{{CUSTOM_FONTS}}', customFontsLink)
-    .replace(/\{\{STYLEGUIDE_CSS\}\}/g, styleguideCSS)
-    .replace(/\{\{CODESNIPPET_CSS\}\}/g, codesnippetCSS)
-    .replace(/\{\{PIPELINE\}\}/g, clientConfig?.pipeline || 'legacy')
-    .replace(
-      '{{SWATCH_SECTIONS}}',
-      isSimplified
-        ? `
-      <h3 class="mb-sm">Brand Colors</h3>
-      <p class="mb-md">The colours of ${client.charAt(0).toUpperCase() + client.slice(1)}.</p>
-      <div id="brand-swatches" class="grid-auto-fill gap-md mb-xl"></div>
-
-      <h3 class="mb-sm">Tints</h3>
-      <p class="mb-md">Shades and tints derived from the brand palette.</p>
-      <div id="tints-swatches" class="grid-auto-fill gap-md mb-xl"></div>
-
-      <h3 class="mb-sm">Color Tokens</h3>
-    <p class="mb-md">Semantic tokens that assign brand colours to functional roles like primary, secondary, and highlight.</p>
-      <div id="color-token-swatches" class="grid-auto-fill gap-md mb-xl"></div>
-
-      <h3 class="mb-sm">Grayscale</h3>
-      <p class="mb-md">Neutral tones for text, backgrounds, and borders.</p>
-      <div id="gray-swatches" class="grid-auto-fill gap-sm mb-xl"></div>
-
-      <h3 class="mb-sm">Utilities</h3>
-      <p class="mb-md">Special-purpose values for transparency and overlay effects.</p>
-      <div id="utilities-swatches" class="grid-auto-fill gap-sm mb-xl"></div>
-    `
-        : `
-      <h3 class="mb-sm">Brand Colors</h3>
-      <div id="brand-swatches" class="grid-auto-fill gap-md mb-xl"></div>
-
-      <h3 class="mb-sm">Grayscale</h3>
-      <div id="gray-swatches" class="grid-auto-fill gap-sm mb-xl"></div>
-    `
-    );
-
-  writeFileSync(`./src/index-${client}.html`, html);
-  console.log(`✅ Generated src/index-${client}.html`);
-});
-
-console.log(
-  `\n✨ Generated ${clients.length} HTML file${clients.length !== 1 ? 's' : ''} successfully!`
-);
+</html>

@@ -1,0 +1,673 @@
+{
+  "typography": {
+    "subtitle-1": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Roboto",
+        "fontSize": "16px",
+        "fontWeight": "{font-weight.strings.poster-font-weight}",
+        "letterSpacing": "0.15000000596046448px",
+        "lineHeight": 1.2
+      }
+    },
+    "subtitle-2": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Roboto",
+        "fontSize": "14px",
+        "fontWeight": "{font-weight.weight-medium}",
+        "letterSpacing": "0.10000000149011612px",
+        "lineHeight": 1.2
+      }
+    },
+    "button": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Roboto",
+        "fontSize": "14px",
+        "fontWeight": "{font-weight.weight-medium}",
+        "letterSpacing": "1.25px",
+        "lineHeight": 1.2
+      }
+    },
+    "caption": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font-family.font-family-base}",
+        "fontSize": "13px",
+        "fontWeight": "{font-weight.strings.poster-font-weight}",
+        "letterSpacing": "0.4000000059604645px",
+        "lineHeight": "{line-height.unitless.leading-tight}"
+      }
+    },
+    "mobile-h1": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Poppins",
+        "fontSize": "30px",
+        "fontWeight": "{font-weight.strings.bold-font-weight}",
+        "letterSpacing": "0px",
+        "lineHeight": "{line-height.unitless.leading-tight}"
+      }
+    },
+    "form": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "12px",
+        "fontWeight": "{font-weight.strings.poster-font-weight}",
+        "letterSpacing": "0px",
+        "lineHeight": 1.2
+      }
+    },
+    "desktop": {
+      "body-base": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "18px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-relaxed}"
+        }
+      },
+      "body-small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "15px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-snug}"
+        }
+      },
+      "body-large": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "22px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-relaxed}"
+        },
+        "$description": "Like H6 but not bold"
+      },
+      "h1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "{font-size.desktop.heading-h1-lg}",
+          "fontWeight": "{font-weight.strings.bold-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        }
+      },
+      "h2": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "{font-size.desktop.heading-h2-lg}",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        }
+      },
+      "h3": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "30px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-normal}"
+        }
+      },
+      "h4": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings-alt}",
+          "fontSize": "28px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": 1.2999999523162842
+        }
+      },
+      "h5": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "22px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0px",
+          "lineHeight": 1.2999999523162842
+        }
+      },
+      "h6": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "20px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0px",
+          "lineHeight": 1.2999999523162842
+        }
+      },
+      "meta": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "16px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0.25px",
+          "lineHeight": "{line-height.unitless.leading-relaxed}"
+        },
+        "$description": "Event Meta, Pronouns, Labels, Kickers, Overlines, Decks"
+      },
+      "display": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "76px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "-1.5px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        },
+        "$description": "XL h1+ size when needed"
+      },
+      "poster": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "70px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "-1.5px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        },
+        "$description": "XXL H1+ size, when needed"
+      },
+      "button-label": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-buttons}",
+          "fontSize": "18px",
+          "fontWeight": "{font-weight.strings.bold-font-weight}",
+          "letterSpacing": "1.25px",
+          "lineHeight": 1.2
+        }
+      },
+      "h3-name": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "30px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-normal}"
+        },
+        "$description": "Slight variant for names in cards."
+      },
+      "footer": {
+        "col-heading": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Poppins",
+            "fontSize": "16px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0px",
+            "lineHeight": "{line-height.unitless.leading-snug}"
+          }
+        },
+        "qoute": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Poppins",
+            "fontSize": "14px",
+            "fontWeight": "{font-weight.weight-light}",
+            "letterSpacing": "0px",
+            "lineHeight": 1.2,
+            "fontStyle": "italic"
+          }
+        },
+        "subfooter": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "18px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        }
+      },
+      "nav": {
+        "toplink": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "24px",
+            "fontWeight": "{font-weight.strings.poster-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        },
+        "toplink-secondary": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "18px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        },
+        "toplink-base": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "18px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        },
+        "slogan": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Space Grotesk",
+            "fontSize": "20px",
+            "fontWeight": "{font-weight.strings.poster-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        }
+      },
+      "form": {
+        "form-label": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-base}",
+            "fontSize": "16px",
+            "fontWeight": "{font-weight.strings.poster-font-weight}",
+            "letterSpacing": "0.25px",
+            "lineHeight": "{line-height.unitless.leading-snug}"
+          },
+          "$description": "Form Field label."
+        }
+      }
+    },
+    "mobile": {
+      "body-base": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "16px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-relaxed}"
+        }
+      },
+      "body-small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "14px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-snug}"
+        }
+      },
+      "h1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "32px",
+          "fontWeight": "{font-weight.strings.bold-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        }
+      },
+      "h2": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "29px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        },
+        "$description": "H2 | Section Headline Text"
+      },
+      "h3": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "26px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        },
+        "$description": "H3 in mobile layouts"
+      },
+      "h4": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings-alt}",
+          "fontSize": "23px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        }
+      },
+      "h5": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "20px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        },
+        "$description": "H5 | Card Headings"
+      },
+      "h6": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "18px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0.15000000596046448px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        }
+      },
+      "h7": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "14px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0.15000000596046448px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        }
+      },
+      "subtitle": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "16px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0.15000000596046448px",
+          "lineHeight": 1.2
+        }
+      },
+      "form-placeholder": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "16px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0.15000000596046448px",
+          "lineHeight": 1.2
+        }
+      },
+      "button-label": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "14px",
+          "fontWeight": "{font-weight.strings.bold-font-weight}",
+          "letterSpacing": "1.25px",
+          "lineHeight": 1.2
+        },
+        "$description": "Mobile Button Label properties"
+      },
+      "display": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings}",
+          "fontSize": "36px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        },
+        "$description": "XL H1+ size, when needed."
+      },
+      "poster": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "41px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        },
+        "$description": "XXL h1++ size, when needed"
+      },
+      "body-large": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "18px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0.15000000596046448px",
+          "lineHeight": "{line-height.unitless.leading-tight}"
+        }
+      },
+      "footer": {
+        "col-heading": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Poppins",
+            "fontSize": "14px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0px",
+            "lineHeight": "{line-height.unitless.leading-snug}"
+          }
+        },
+        "qoute": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Poppins",
+            "fontSize": "14px",
+            "fontWeight": "{font-weight.weight-light}",
+            "letterSpacing": "0px",
+            "lineHeight": 1.2,
+            "fontStyle": "italic"
+          }
+        },
+        "subfooter": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "12px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        },
+        "footlink": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "16px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        }
+      },
+      "nav": {
+        "toplink": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "18px",
+            "fontWeight": "{font-weight.strings.poster-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        },
+        "toplink-secondary": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "18px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        },
+        "toplink-base": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "14px",
+            "fontWeight": "{font-weight.strings.bold-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        },
+        "slogan": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Space Grotesk",
+            "fontSize": "10px",
+            "fontWeight": "{font-weight.strings.poster-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        },
+        "dropdown-item": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-headings}",
+            "fontSize": "14px",
+            "fontWeight": "{font-weight.strings.poster-font-weight}",
+            "letterSpacing": "0.15000000596046448px",
+            "lineHeight": 1.2
+          }
+        }
+      },
+      "form": {
+        "form-label": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "{font-family.font-family-base}",
+            "fontSize": "14px",
+            "fontWeight": "{font-weight.strings.poster-font-weight}",
+            "letterSpacing": "0.25px",
+            "lineHeight": "{line-height.unitless.leading-snug}"
+          },
+          "$description": "Form Field label."
+        }
+      }
+    },
+    "mockup-only": {
+      "label-small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Roboto",
+          "fontSize": "14px",
+          "fontWeight": "{font-weight.weight-medium}",
+          "letterSpacing": "1.25px",
+          "lineHeight": 1.2
+        },
+        "$description": "For use in the mockup only."
+      },
+      "label-large": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Roboto",
+          "fontSize": "48px",
+          "fontWeight": "{font-weight.strings.bold-font-weight}",
+          "letterSpacing": "1.25px",
+          "lineHeight": 1.2
+        }
+      },
+      "label-medium": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Roboto",
+          "fontSize": "28px",
+          "fontWeight": "{font-weight.weight-medium}",
+          "letterSpacing": "1.25px",
+          "lineHeight": 1.2
+        }
+      },
+      "instructions-base-type": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Inter",
+          "fontSize": "12px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": 1.2
+        }
+      },
+      "instructons-subhead": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Inter",
+          "fontSize": "12px",
+          "fontWeight": "{font-weight.weight-semibold}",
+          "letterSpacing": "0px",
+          "lineHeight": 1.2,
+          "fontStyle": "italic"
+        }
+      },
+      "instructions-header": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Inter",
+          "fontSize": "12px",
+          "fontWeight": "{font-weight.strings.bold-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": 1.2
+        },
+        "$description": "Instructions header only"
+      },
+      "instructions-section-heading": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Inter",
+          "fontSize": "20px",
+          "fontWeight": "{font-weight.strings.bold-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": 1.2
+        },
+        "$description": "Title of an Instructions Card"
+      },
+      "logo-placeholder": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings-alt}",
+          "fontSize": "24px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": 0
+        }
+      },
+      "logo-placeholder-desktop": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.font-family-headings-alt}",
+          "fontSize": "32px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": 0
+        }
+      }
+    },
+    "nav": {
+      "header": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Poppins",
+          "fontSize": "24px",
+          "fontWeight": "{font-weight.strings.poster-font-weight}",
+          "letterSpacing": "0px",
+          "lineHeight": 1.2
+        }
+      }
+    }
+  }
+}

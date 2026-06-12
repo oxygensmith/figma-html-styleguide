@@ -80,6 +80,78 @@ function getColorVariables(pattern) {
   return variables;
 }
 
+// Build a flat map of all :root CSS custom properties
+function buildPropertyMap() {
+  const props = {};
+  for (let i = 0; i < document.styleSheets.length; i++) {
+    try {
+      const sheet = document.styleSheets[i];
+      if (!sheet.cssRules) continue;
+      for (let rule of sheet.cssRules) {
+        if (rule.type === CSSRule.STYLE_RULE && rule.selectorText === ':root') {
+          const style = rule.style;
+          for (let j = 0; j < style.length; j++) {
+            const prop = style[j];
+            props[prop] = style.getPropertyValue(prop).trim();
+          }
+        }
+      }
+    } catch (e) {}
+  }
+  return props;
+}
+
+// Follow var() reference chains within a property map
+function resolveVarChain(value, propMap, depth = 0) {
+  if (depth > 5 || !value.startsWith('var(')) return value;
+  const match = value.match(/^var\(\s*(--[^,\s)]+)/);
+  if (!match || !propMap[match[1]]) return value;
+  return resolveVarChain(propMap[match[1]], propMap, depth + 1);
+}
+
+// Cached prop map + convenience resolver
+let _cachedPropMap = null;
+function resolveVar(varName) {
+  if (!_cachedPropMap) _cachedPropMap = buildPropertyMap();
+  const raw = _cachedPropMap[varName];
+  return raw ? resolveVarChain(raw, _cachedPropMap) : null;
+}
+
+// Get all color variables with var() references resolved to hex
+function getAllColorVariablesResolved() {
+  const propMap = buildPropertyMap();
+  const variables = [];
+  for (const [prop, raw] of Object.entries(propMap)) {
+    const resolved = resolveVarChain(raw, propMap);
+    if (resolved && resolved.startsWith('#')) {
+      variables.push({ name: prop, value: resolved, humanName: formatVariableName(prop) });
+    }
+  }
+  return variables;
+}
+
+// Categorize resolved color variables into the 5 simplified groups
+function categorizeColorsSimplified(all) {
+  const cats = { colorTokens: [], brand: [], tints: [], gray: [], utilities: [] };
+  const semanticPrefixes = /^(border|text|body|heading|footer|link|btn|bg|form|donate|nav|desktop|mobile|section|logo|header|block|card|dropdown|toggler)/;
+  const excludeExact = new Set(['color', 'bg']);
+  all.forEach((v) => {
+    const n = v.name.replace(/^--/, '');
+    if (n.startsWith('color-')) {
+      cats.colorTokens.push(v);
+    } else if (/gray|black|white/.test(n)) {
+      cats.gray.push(v);
+    } else if (/translucent|transparent/.test(n)) {
+      cats.utilities.push(v);
+    } else if (/-\d+$/.test(n)) {
+      cats.tints.push(v);
+    } else if (!semanticPrefixes.test(n) && !excludeExact.has(n)) {
+      cats.brand.push(v);
+    }
+  });
+  return cats;
+}
+
 // Function to generate swatch HTML
 function generateSwatches(variables, containerSelector) {
   const container = document.querySelector(containerSelector);
@@ -106,138 +178,72 @@ function generateSwatches(variables, containerSelector) {
   });
 }
 
-// Function to add typography info to heading elements
-// Function to add typography info to heading elements
 function addTypographyInfo() {
   const typographySection = document.querySelector('.card.mb-lg');
   if (!typographySection) return;
 
-  // Define which elements to annotate
-  const elements = [
-    { selector: 'h1', type: 'h1', isHeading: true, isParagraph: false },
-    { selector: 'h2', type: 'h2', isHeading: true, isParagraph: false },
-    { selector: 'h3', type: 'h3', isHeading: true, isParagraph: false },
-    { selector: 'h4', type: 'h4', isHeading: true, isParagraph: false },
-    {
-      selector: 'p.mt-md',
-      type: 'p--base',
-      isHeading: false,
-      isParagraph: true,
-      label: 'Paragraph (Regular)',
-    },
-    {
-      selector: 'p.large',
-      type: 'p--large',
-      isHeading: false,
-      isParagraph: true,
-      label: 'Paragraph (Large)',
-    },
-    {
-      selector: 'p.small',
-      type: 'p--small',
-      isHeading: false,
-      isParagraph: true,
-      label: 'Paragraph (Small)',
-    },
-  ];
+  const isSimplified = window.PIPELINE === 'simplified';
 
-  elements.forEach(({ selector, type, isHeading, isParagraph, label }) => {
-    const element = typographySection.querySelector(selector);
-    if (!element) return;
+  const simplifiedSizeMap = {
+    h1:         ['--heading-h1-xs',  '--heading-h1-md',  '--heading-h1-lg'],
+    h2:         ['--heading-h2-xs',  '--heading-h2-md',  '--heading-h2-lg'],
+    h3:         ['--heading-h3-xs',  '--heading-h3-md',  '--heading-h3-lg'],
+    h4:         ['--heading-h4-xs',  '--heading-h4-md',  '--heading-h4-lg'],
+    h5:         ['--heading-h5-xs',  '--heading-h5-md',  '--heading-h5-lg'],
+    h6:         ['--heading-h6-xs',  '--heading-h6-md',  '--heading-h6-lg'],
+    'p--base':  ['--p-base-xs',      '--p-base-md',      '--p-base-lg'],
+    'p--large': ['--p-large-xs',     '--p-large-md',     '--p-large-lg'],
+    'p--small': ['--p-small-xs',     '--p-small-md',     '--p-small-lg'],
+    display:    ['--display-xs',     '--display-md',     '--display-lg'],
+    poster:     ['--poster-xs',      '--poster-md',      '--poster-lg'],
+  };
 
-    // Get size info
-    const mobile = getCSSVariable(`--font-size--${type}--mobile`) || '--';
-    const tablet = getCSSVariable(`--font-size--${type}--tablet`) || '--';
-    const desktop = getCSSVariable(`--font-size--${type}--desktop`) || '--';
+  const simplifiedLHMap = {
+    h1: '--leading-tight', h2: '--leading-tight', h3: '--leading-normal',
+    h4: '--leading-snug',  h5: '--leading-snug',  h6: '--leading-snug',
+    'p--base': '--leading-relaxed', 'p--large': '--leading-relaxed',
+    'p--small': '--leading-tight',  display: '--leading-tight', poster: '--leading-tight',
+  };
 
-    // Get weight - element-specific first, then fallback to global
-    const weight =
-      getCSSVariable(`--font-weight--${type}`) ||
-      (isHeading
-        ? getCSSVariable('--font-weight--headings')
-        : getCSSVariable('--font-weight--body')) ||
-      '--';
+  function val(varName) {
+    if (!varName) return '--';
+    const v = isSimplified ? resolveVar(varName) : getCSSVariable(varName);
+    return (v && v !== 'undefined') ? v : '--';
+  }
 
-    // Get letter-spacing - element-specific first, then fallback to global
-    const letterSpacing =
-      getCSSVariable(`--letter-spacing--${type}`) ||
-      (isHeading
-        ? getCSSVariable('--letter-spacing--headings')
-        : getCSSVariable('--letter-spacing--p')) ||
-      '--';
+  function getSizes(type) {
+    if (isSimplified) return simplifiedSizeMap[type] || [null, null, null];
+    return [`--font-size--${type}--mobile`, `--font-size--${type}--tablet`, `--font-size--${type}--desktop`];
+  }
 
-    // Get line height
-    const lineHeight = isHeading
-      ? getCSSVariable('--line-height--headings') || '--'
-      : getCSSVariable('--line-height--p') ||
-        getCSSVariable('--line-height--base') ||
-        '--';
-
-    // Create wrapper to hold both heading and info side-by-side
-    const wrapper = document.createElement('div');
-    wrapper.className = 'sg-typography-wrapper';
-
-    // Handle paragraphs differently
-    if (isParagraph) {
-      // Create container for paragraph examples
-      const paragraphContainer = document.createElement('div');
-      paragraphContainer.className = 'sg-typography-element';
-
-      // Add label
-      const paragraphLabel = document.createElement('p');
-      // Apply the correct class for styling to match the paragraph style
-      if (type === 'p--large') {
-        paragraphLabel.className = 'large';
-      } else if (type === 'p--small') {
-        paragraphLabel.className = 'small';
-      }
-      paragraphLabel.innerHTML = `<strong>${label}</strong>`;
-      paragraphContainer.appendChild(paragraphLabel);
-
-      // First paragraph
-      const firstPara = document.createElement('p');
-      // Apply the correct class for styling
-      if (type === 'p--large') {
-        firstPara.className = 'large';
-      } else if (type === 'p--small') {
-        firstPara.className = 'small';
-      }
-      firstPara.textContent =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
-      paragraphContainer.appendChild(firstPara);
-
-      // Second paragraph (italic)
-      const secondPara = document.createElement('p');
-      // Apply the correct class for styling
-      if (type === 'p--large') {
-        secondPara.className = 'large';
-      } else if (type === 'p--small') {
-        secondPara.className = 'small';
-      }
-      secondPara.style.fontStyle = 'italic';
-      secondPara.textContent =
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-      paragraphContainer.appendChild(secondPara);
-
-      wrapper.appendChild(paragraphContainer);
-
-      // Remove the original element
-      element.remove();
-    } else {
-      // For headings, clone the element
-      const clonedElement = element.cloneNode(true);
-      clonedElement.className = 'sg-typography-element';
-      wrapper.appendChild(clonedElement);
-
-      // Remove the original element
-      element.remove();
+  function getWeight(type, isHeading) {
+    if (isSimplified) {
+      if (['h1','h2','h3','h4','h5','h6'].includes(type)) return val(`--${type}-font-weight`);
+      if (type === 'display' || type === 'poster') return val('--h1-font-weight');
+      return val('--base-font-weight');
     }
+    return getCSSVariable(`--font-weight--${type}`) ||
+      (isHeading ? getCSSVariable('--font-weight--headings') : getCSSVariable('--font-weight--body')) || '--';
+  }
 
-    // Create info box with 4-column layout
-    const infoBox = document.createElement('div');
-    infoBox.className = 'sg-info-box';
+  function getLineHeight(type, isHeading) {
+    if (isSimplified) return val(simplifiedLHMap[type] || (isHeading ? '--leading-tight' : '--leading-relaxed'));
+    return isHeading
+      ? getCSSVariable('--line-height--headings') || '--'
+      : getCSSVariable('--line-height--p') || getCSSVariable('--line-height--base') || '--';
+  }
 
-    infoBox.innerHTML = `
+  function getLetterSpacing(type, isHeading) {
+    if (isSimplified) return '--';
+    return getCSSVariable(`--letter-spacing--${type}`) ||
+      (isHeading ? getCSSVariable('--letter-spacing--headings') : getCSSVariable('--letter-spacing--p')) || '--';
+  }
+
+  function buildInfoBox(type, isHeading) {
+    const [mobileVar, tabletVar, desktopVar] = getSizes(type);
+    const box = document.createElement('div');
+    box.className = 'sg-info-box';
+    box.innerHTML = `
       <div class="sg-stats-grid">
         <div class="sg-stats-column">
           <div class="sg-breakpoint-label">&nbsp;</div>
@@ -248,33 +254,94 @@ function addTypographyInfo() {
         </div>
         <div class="sg-stats-column">
           <div class="sg-breakpoint-label">Mobile</div>
-          <div class="sg-size-value">${mobile}</div>
-          <div class="sg-stat-value">${weight}</div>
-          <div class="sg-stat-value">${letterSpacing}</div>
-          <div class="sg-stat-value-last">${lineHeight}</div>
+          <div class="sg-size-value">${val(mobileVar)}</div>
+          <div class="sg-stat-value">${getWeight(type, isHeading)}</div>
+          <div class="sg-stat-value">${getLetterSpacing(type, isHeading)}</div>
+          <div class="sg-stat-value-last">${getLineHeight(type, isHeading)}</div>
         </div>
         <div class="sg-stats-column">
           <div class="sg-breakpoint-label">Tablet</div>
-          <div class="sg-size-value">${tablet}</div>
-          <div class="sg-stat-value">${weight}</div>
-          <div class="sg-stat-value">${letterSpacing}</div>
-          <div class="sg-stat-value-last">${lineHeight}</div>
+          <div class="sg-size-value">${val(tabletVar)}</div>
+          <div class="sg-stat-value">${getWeight(type, isHeading)}</div>
+          <div class="sg-stat-value">${getLetterSpacing(type, isHeading)}</div>
+          <div class="sg-stat-value-last">${getLineHeight(type, isHeading)}</div>
         </div>
         <div class="sg-stats-column">
           <div class="sg-breakpoint-label">Desktop</div>
-          <div class="sg-size-value">${desktop}</div>
-          <div class="sg-stat-value">${weight}</div>
-          <div class="sg-stat-value">${letterSpacing}</div>
-          <div class="sg-stat-value-last">${lineHeight}</div>
+          <div class="sg-size-value">${val(desktopVar)}</div>
+          <div class="sg-stat-value">${getWeight(type, isHeading)}</div>
+          <div class="sg-stat-value">${getLetterSpacing(type, isHeading)}</div>
+          <div class="sg-stat-value-last">${getLineHeight(type, isHeading)}</div>
         </div>
-      </div>
-    `;
+      </div>`;
+    return box;
+  }
 
-    wrapper.appendChild(infoBox);
+  function appendRow(el, type, isHeading, isParagraph, label) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'sg-typography-wrapper';
 
-    // Insert wrapper into the typography section
+    if (isParagraph) {
+      const container = document.createElement('div');
+      container.className = 'sg-typography-element';
+      const lbl = document.createElement('p');
+      if (type === 'p--large') lbl.className = 'large';
+      else if (type === 'p--small') lbl.className = 'small';
+      lbl.innerHTML = `<strong>${label}</strong>`;
+      container.appendChild(lbl);
+      ['Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'].forEach((text, i) => {
+        const p = document.createElement('p');
+        if (type === 'p--large') p.className = 'large';
+        else if (type === 'p--small') p.className = 'small';
+        if (i === 1) p.style.fontStyle = 'italic';
+        p.textContent = text;
+        container.appendChild(p);
+      });
+      wrapper.appendChild(container);
+      if (el) el.remove();
+    } else if (el) {
+      const cloned = el.cloneNode(true);
+      cloned.className = 'sg-typography-element';
+      wrapper.appendChild(cloned);
+      el.remove();
+    } else {
+      const placeholder = document.createElement('p');
+      placeholder.className = 'sg-typography-element';
+      placeholder.style.fontSize = val(getSizes(type)[2]) || 'inherit';
+      placeholder.innerHTML = `<strong>${label}</strong>`;
+      wrapper.appendChild(placeholder);
+    }
+
+    wrapper.appendChild(buildInfoBox(type, isHeading));
     typographySection.appendChild(wrapper);
+  }
+
+  // Headings from HTML
+  ['h1','h2','h3','h4','h5','h6'].forEach((tag) => {
+    const el = typographySection.querySelector(tag);
+    if (el) appendRow(el, tag, true, false, null);
   });
+
+  // Paragraphs
+  [
+    { selector: 'p.mt-md', type: 'p--base',  label: 'Paragraph (Regular)' },
+    { selector: 'p.large', type: 'p--large', label: 'Paragraph (Large)' },
+    { selector: 'p.small', type: 'p--small', label: 'Paragraph (Small)' },
+  ].forEach(({ selector, type, label }) => {
+    const el = typographySection.querySelector(selector);
+    if (el) appendRow(el, type, false, true, label);
+  });
+
+  // Display and poster — only if their size variables exist
+  if (isSimplified) {
+    if (resolveVar('--display-lg') || resolveVar('--display-xs')) {
+      appendRow(null, 'display', true, false, 'Display');
+    }
+    if (resolveVar('--poster-lg') || resolveVar('--poster-xs')) {
+      appendRow(null, 'poster', true, false, 'Poster');
+    }
+  }
 }
 
 // Function to generate accessibility/WCAG contrast swatches (UPDATED WITH COLOR FILTERING)
@@ -283,7 +350,9 @@ async function generateAccessibilitySwatches() {
   if (!container) return;
 
   // Get all brand color variables
-  const brandColors = getColorVariables('brand');
+  const brandColors = window.PIPELINE === 'simplified'
+    ? categorizeColorsSimplified(getAllColorVariablesResolved()).brand
+    : getColorVariables('brand');
 
   // Generate all possible combinations
   const combinations = [];
@@ -531,15 +600,84 @@ function getWCAGCompliance(ratio) {
   };
 }
 
+function generateTypefaceTable() {
+  const container = document.querySelector('#typeface-table');
+  if (!container) return;
+
+  const propMap = buildPropertyMap();
+  const fontVars = Object.keys(propMap)
+    .filter((k) => k.replace(/^--/, '').startsWith('font-family-'))
+    .sort();
+
+  if (fontVars.length === 0) return;
+
+  const groups = [
+    { label: 'Primitives',   test: (n) => /^font-family-(sans|serif|mono)$/.test(n) },
+    { label: 'Base / Body',  test: (n) => /^font-family-base/.test(n) },
+    { label: 'Headings',     test: (n) => /^font-family-headings/.test(n) },
+    { label: 'Other',        test: () => true },
+  ];
+
+  const assigned = new Set();
+  const grouped = groups.map((g) => {
+    const vars = fontVars.filter((v) => {
+      const n = v.replace(/^--/, '');
+      return !assigned.has(v) && g.test(n) && (assigned.add(v) || true);
+    });
+    return { label: g.label, vars };
+  });
+
+  function primaryFont(varName) {
+    const resolved = resolveVarChain(propMap[varName] || '', propMap);
+    return resolved.split(',')[0].trim().replace(/['"]/g, '') || varName;
+  }
+
+  let html = '';
+  for (const group of grouped) {
+    if (group.vars.length === 0) continue;
+    html += `<p class="sg-typeface-group">${group.label}</p>`;
+    html += `<div class="sg-typeface-rows mb-lg">`;
+    for (const varName of group.vars) {
+      const fontName = primaryFont(varName);
+      html += `
+        <div class="sg-typeface-row">
+          <span class="sg-typeface-var">${varName}</span>
+          <span class="sg-typeface-sample" style="font-family: var(${varName})">${fontName}</span>
+        </div>`;
+    }
+    html += `</div>`;
+  }
+
+  container.innerHTML = html;
+}
+
+// For simplified pipeline: collect all hex colors, split into brand vs gray by name
+function getColorVariablesSimplified() {
+  const grayTerms = ['gray', 'black', 'white'];
+  const all = getColorVariables('');
+  const brand = all.filter((v) => !grayTerms.some((t) => v.name.toLowerCase().includes(t)));
+  const gray  = all.filter((v) =>  grayTerms.some((t) => v.name.toLowerCase().includes(t)));
+  return { brand, gray };
+}
+
 // Wait for DOM and styles to load
 window.addEventListener('load', () => {
-  // Generate brand color swatches
-  const brandColors = getColorVariables('brand');
-  generateSwatches(brandColors, '#brand-swatches');
+  const isSimplified = window.PIPELINE === 'simplified';
 
-  // Generate grayscale swatches
-  const grayColors = getColorVariables('gray');
-  generateSwatches(grayColors, '#gray-swatches');
+  if (isSimplified) {
+    const cats = categorizeColorsSimplified(getAllColorVariablesResolved());
+    generateSwatches(cats.colorTokens, '#color-token-swatches');
+    generateSwatches(cats.brand,       '#brand-swatches');
+    generateSwatches(cats.tints,       '#tints-swatches');
+    generateSwatches(cats.gray,        '#gray-swatches');
+    generateSwatches(cats.utilities,   '#utilities-swatches');
+  } else {
+    generateSwatches(getColorVariables('brand'), '#brand-swatches');
+    generateSwatches(getColorVariables('gray'),  '#gray-swatches');
+  }
+
+  // Typeface table (simplified pipeline only)
+  if (isSimplified) generateTypefaceTable();
 
   // Add typography information
   addTypographyInfo();

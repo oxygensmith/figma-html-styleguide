@@ -1,0 +1,26 @@
+{
+  "form-field-border-width": {
+    "$type": "dimension",
+    "$value": "2px"
+  },
+  "form-field-border-radius": {
+    "$type": "dimension",
+    "$value": "0px"
+  },
+  "form-field-placeholder-colour": {
+    "$type": "color",
+    "$value": "{color.translucent-dark}"
+  },
+  "form-field-x-padding": {
+    "$type": "number",
+    "$value": 24
+  },
+  "form-field-y-padding": {
+    "$type": "number",
+    "$value": 16
+  },
+  "form-field-label-color": {
+    "$type": "color",
+    "$value": "{text-color.body-text.body-text-base}"
+  }
+}
